@@ -1,0 +1,52 @@
+/* @import "colors"; */
+
+.main-footer {
+  background: url("../../public/footer_background.jpg");
+  background-size: cover;
+  background-position: center center;
+  /* height: 500px; */
+  /* max-height: 100%; */
+}
+.main-footer-container {
+  background-color: rgba(0, 0, 0, 0.6);
+  /* height: 700px; */
+  color: #ffffff;
+}
+
+.main-footer-content {
+  width: 90%;
+  /* height: 500px; */
+  margin: 0 auto;
+  padding: 20px 0;
+/* 
+  p {
+    font-size: 1.5rem;
+  } */
+}
+
+.main-footer-copyright {
+  color: #ffffff;
+  text-align: center;
+  padding-bottom: 5px;
+  /* padding-top: 30px; */
+  font-size: 1.5rem;
+  /* hr {
+    width: 100%;
+    margin: 0 auto;
+    border-width: 3px;
+    border-color: $themeColor;
+  } */
+}
+
+.footer-icons {
+  width:"40px";
+  color: $themeColor;
+  margin-right: 1rem;
+}
+
+.main-footer-payment ul li {
+  text-decoration: none;
+  display: inline;
+
+  padding: 0 5px;
+}
