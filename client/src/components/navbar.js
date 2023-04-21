@@ -3,7 +3,7 @@ import "./NavBar.css";
 import Home from "../pages/home";
 import Login from "../pages/login/login";
 import Register from "../pages/register/register";
-import AboutUs from "../pages/aboutUs";
+import AboutUs from "../pages/aboutus/aboutUs";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 
 function NavBar() {
