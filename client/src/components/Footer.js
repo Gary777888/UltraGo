@@ -110,7 +110,7 @@ export default function Footer() {
                </div>
             </div>
             <div className="row">
-               <div className="col-lg-12 main-footer-copyright">
+               <div className="main-footer-copyright">
                   <p>Copyright &copy; {dateyear}. All Right reserved.</p>
                   <hr />
                </div>
