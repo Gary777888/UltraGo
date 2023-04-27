@@ -30,10 +30,11 @@ const Login = () => {
          .then((res) => {
             console.log("inside", res);
             setSuccessful(true);
-            setMessage(res.data);
+            setMessage(res.message);
             setTimeout(function () {
                navigate("/");
-            }, 2000);
+               window.location.reload();
+            }, 1000);
          })
          .catch((error) => {
             if (

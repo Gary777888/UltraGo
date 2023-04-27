@@ -1,0 +1,101 @@
+.Home{
+    
+}
+
+
+.imageContainer{
+  /* background: url("../../images/stadium.jpg"); */
+    /* width:100%;
+    height: 400px; */
+    /* background-color: aqua; */
+}
+
+.sliderimg1{
+    display: block;
+    height: 400px;
+    /* height: %; */
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    /* object-fit: cover; */
+}
+.sliderimg2{
+    display: block;
+    height: 400px;
+    /* height: 5%; */
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    /* object-fit: cover; */
+}
+.sliderimg3{
+    display: block;
+    height: 400px;
+    /* height: 5%; */
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    /* object-fit: cover; */
+}
+
+.homeContainer {
+    /* float: left; */
+}
+
+
+.homeHeader{
+    background-color: rgb(246, 161, 161);
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
+    font-size: 45px;
+    padding: 15px;
+    display: block;
+    margin: 0;
+    /* font-size: 25px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding-left: 20px; */
+}
+
+.homeColumn{
+    /* float: left; */
+    position: relative;
+    /* left: 400px; */
+    /* right: 0; */
+    margin: auto;
+    display: flex;
+    /* flex-direction: row; */
+    /* margin: auto; */
+    height: 350px;
+    width: 50%;
+    background-color: aqua;
+    /* padding-left: 20px; */
+    /* padding-left: 40%; */
+    /* margin-bottom: 100px; */
+    /* padding: 0 8px; */
+}
+
+.homeCard{
+    width: 100%;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
+    /* box-shadow: 5px 10px rgb(52, 53, 56); */
+
+    border-radius: 20px;
+    /* padding-left: 40px; */
+    margin-left: 30px;
+    /* background-color: antiquewhite; */
+}
+
+.cardContainer{
+   
+}
+
+.homeColumn2{
+    /* float: left; */
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* margin: auto; */
+    /* width: 30%; */
+    /* padding-left: 20px; */
+    /* margin-bottom: 100px; */
+    /* padding: 0 8px; */
+}

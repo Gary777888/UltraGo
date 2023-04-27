@@ -111,7 +111,9 @@ export default function Footer() {
             </div>
             <div className="row">
                <div className="main-footer-copyright">
-                  <p>Copyright &copy; {dateyear}. All Right reserved.</p>
+                  <p>
+                     Copyright &copy; {dateyear} UltraGo. All Right reserved.
+                  </p>
                   <hr />
                </div>
             </div>

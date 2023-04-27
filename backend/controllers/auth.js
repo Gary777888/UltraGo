@@ -16,6 +16,12 @@ module.exports.register = (req, res) => {
             return res.status(409).json("User already exists");
          }
          //Create a new user
+         // const check =
+         //    /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,10}$/;
+         // const ValidationPassword = check.test(req.body.password);
+         // if (ValidationPassword === false) {
+         //    return "The password must be 6 - 10 characters and contains one alphabet, one captial letter, one number and one special character.";
+         // }
          const salt = bcrypt.genSaltSync(10);
          const hashedPassword = bcrypt.hashSync(req.body.password, salt);
          const q =
@@ -78,11 +84,15 @@ module.exports.login = (req, res) => {
          httpOnly: true,
       })
          .status(200)
-         .json(
-            // username: others.username,
-            // email: others.email,
-            // accessToken: token,
-            `Welcome ${req.body.username}`
+         .send(
+            {
+               username: others.username,
+               email: others.email,
+               name: others.name,
+               accessToken: token,
+               message: `Welcome ${others.username}`,
+            }
+            // `Welcome ${req.body.username}`
          );
    });
 };

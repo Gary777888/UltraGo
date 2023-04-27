@@ -2,6 +2,10 @@
 
 .main-footer {
   /* background: url("../../public/footer_background2.jpg"); */
+  /* position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%; */
   background-color: rgb(39, 36, 36);
   background-size: cover;
   background-position: center center;

@@ -34,10 +34,11 @@ const Register = () => {
 
    const onChangePassword = (e) => {
       const check =
-         /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,10}$/;
+         /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,10}$/;
       const ValidationPassword = check.test(e.target.value);
       if (ValidationPassword === false) {
          setPasswordcheck(false);
+         console.log("error password..", password, e.target.value);
       } else {
          setPasswordcheck(true);
          const PASSWORD = e.target.value;
@@ -58,7 +59,7 @@ const Register = () => {
       if (passwordcheck === false) {
          setSuccessful(false);
          setMessage(
-            "The password must be 6 - 10 characters and contains one alphabet, one number and one special character."
+            "The password must be 6 - 10 characters and contains one alphabet, one capital letter, one number and one special character."
          );
       } else if (emailcheck === false) {
          setSuccessful(false);
@@ -67,6 +68,7 @@ const Register = () => {
          authService
             .register(username, email, password, name)
             .then((res) => {
+               console.log("herehe", res);
                setSuccessful(true);
                setMessage(res.data);
                setTimeout(function () {
@@ -74,6 +76,7 @@ const Register = () => {
                }, 2000);
             })
             .catch((error) => {
+               console.log("error backend...", error);
                if (error.response.status === 404) {
                   setSuccessful(false);
                   setMessage("API Error");
