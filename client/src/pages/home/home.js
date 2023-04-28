@@ -1,111 +1,185 @@
-import stadium from "../../images/stadium.jpg";
+import { Link } from "react-router-dom";
+
 import "./home.css";
 import AliceCarousel from "react-alice-carousel";
 import "react-alice-carousel/lib/alice-carousel.css";
-import balls from "../../images/balls.jpg";
-import yellowBoots2 from "../../images/yellowBoots2.jpg";
-import jersey2 from "../../images/jersey2.png";
-import girl from "../../images/girl.jpg";
-import botak from "../../images/botak.jpg";
-import arrowMan from "../../images/arrowMan.jpg";
+import soccerEquipment from "../../images/soccerEquipment.jpg";
+import argentina from "../../images/argentina.jpg";
+import singapore from "../../images/singapore.png";
+import jersey from "../../images/jersey.jpg";
+import soccerBoots from "../../images/soccerBoots.png";
+import accessories from "../../images/accessories.png";
+import redball from "../../images/redball.jpg";
+import nikeBoots from "../../images/nikeboots.jpg";
+import blackball from "../../images/blackball.jpg";
+import limitedjersey from "../../images/limitedjersey.jpg";
+
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 const Home = () => {
+   const items = [
+      <img src={argentina} alt="argentina" className="sliderimg1" />,
+      <img src={singapore} alt="singapore" className="sliderimg2" />,
+      <img
+         src={soccerEquipment}
+         alt="soccerEquipments"
+         className="sliderimg3"
+      />,
+   ];
+
+   const renderNextButton = ({ isDisabled }) => {
+      return (
+         <ArrowForwardIosIcon
+            style={{
+               position: "absolute",
+               right: 0,
+               top: 240,
+               // backgroundColor: "lightgrey",
+               color: "orange",
+               fontSize: "40px",
+            }}
+         />
+      );
+   };
+
+   const renderPrevButton = ({ isDisabled }) => {
+      return (
+         <ArrowBackIosIcon
+            style={{
+               position: "absolute",
+               left: 0,
+               top: 240,
+               // backgroundColor: "lightgrey",
+               color: "orange",
+               fontSize: "40px",
+            }}
+         />
+      );
+   };
+
    return (
       <div className="Home">
          <div className="imageContainer">
-            {/* <h2 className="pageTitle">About Us</h2> */}
-            {/* <img src={stadium} className="homeImage" /> */}
-            <AliceCarousel autoPlay autoPlayInterval={2000} infinite="true">
-               <p>
-                  <img src={balls} alt="balls" className="sliderimg1" />
-               </p>
-               <p>
-                  <img
-                     src={yellowBoots2}
-                     alt="yellowBoots"
-                     className="sliderimg2"
-                  />
-               </p>
-               <p>
-                  <img src={jersey2} alt="jersey" className="sliderimg3" />
-               </p>
+            <AliceCarousel
+               autoPlay
+               autoPlayInterval={2000}
+               animationType="fadeout"
+               infinite="true"
+               renderPrevButton={renderPrevButton}
+               renderNextButton={renderNextButton}
+            >
+               {items}
             </AliceCarousel>
          </div>
          <div className="homeContainer">
-            <header className="homeHeader">Home</header>
-            <p>
-               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolores
-               quae porro consequatur aliquam, incidunt eius magni provident,
-               doloribus omnis minus temporibus perferendis nesciunt quam
-               repellendus nulla nemo ipsum odit corrupti consequuntur possimus,
-               vero mollitia velit ad consectetur. Alias, laborum excepturi
-               nihil autem nemo numquam, ipsa architecto non, magni consequuntur
-               quam.
+            <header className="homeHeader">Our New Arrivals</header>
+            <br />
+            <p
+               style={{
+                  textAlign: "center",
+                  fontFamily: "Cursive",
+                  fontSize: "18px",
+               }}
+            >
+               Don't miss these new arrivals in our store now!!
             </p>
+            <br />
          </div>
          <div className="homeColumn">
             <br />
             <div className="homeCard">
-               <img src={girl} alt="girl" className="member" />
-               {/* <div className="cardContainer">
-                  <h2 style={{ paddingLeft: "10px" }}>Super Girl</h2>
-                  <p className="para">
-                     Some text that describes me lorem ipsum ipsum lorem.
-                  </p>
-                  <p className="para">supergirl@gmail.com</p>
-               </div> */}
+               <img src={jersey} alt="jersey" className="member" />
             </div>
             <div className="homeCard">
-               <img src={botak} alt="botak" className="member" />
-               {/* <div className="cardContainer">
-                  <h2 style={{ paddingLeft: "10px" }}>Botak</h2>
-                  <p className="para">
-                     Some text that describes me lorem ipsum ipsum lorem.
-                  </p>
-                  <p className="para">botak@gmail.com</p>
-               </div> */}
+               <img src={soccerBoots} alt="soccerBoots" className="member" />
             </div>
             <div className="homeCard">
-               <img src={arrowMan} alt="arrowMan" className="member" />
+               <img src={accessories} alt="accessories" className="member" />
             </div>
          </div>
          <div className="homeColumn">
             <div className="homeCard">
-               <h2 style={{ paddingLeft: "10px" }}>Super Girl</h2>
+               <h2 style={{ paddingLeft: "10px" }}>
+                  Jersey & Pants Collection
+               </h2>
                <p className="para">
                   Some text that describes me lorem ipsum ipsum lorem.
                </p>
-               <p className="para">supergirl@gmail.com</p>
+               <Link to="/jerseypantsCollection">
+                  <button className="homeButton">Shop J & P</button>
+               </Link>
             </div>
             <div className="homeCard">
-               <h2 style={{ paddingLeft: "10px" }}>Botak</h2>
+               <h2 style={{ paddingLeft: "10px" }}>
+                  Football Boots Collection
+               </h2>
                <p className="para">
                   Some text that describes me lorem ipsum ipsum lorem.
                </p>
-               <p className="para">botak@gmail.com</p>
+               <Link to="/shoesCollection">
+                  <button className="homeButton">Shop S</button>
+               </Link>
             </div>
             <div className="homeCard">
-               <h2 style={{ paddingLeft: "10px" }}>Botak</h2>
+               <h2 style={{ paddingLeft: "10px" }}>Accessories Collection</h2>
                <p className="para">
                   Some text that describes me lorem ipsum ipsum lorem.
                </p>
-               <p className="para">botak@gmail.com</p>
+               <Link to="/accessoriesCollection">
+                  <button className="homeButton">Shop A</button>
+               </Link>
             </div>
          </div>
-         {/* <div className="homeColumn2np">
+         <br />
+         <br />
+         <br />
+         <header className="homeHeader">Limited Edition</header>
+         <br />
+         <p
+            style={{
+               textAlign: "center",
+               fontFamily: "Cursive",
+               fontSize: "18px",
+            }}
+         >
+            Hurry Up while stocks last!!!
+         </p>
+         <br />
+         <div className="homeColumn">
             <br />
-            <div className="card">
-               <img src={botak} alt="botak" className="member" />
-               <div className="cardContainer">
-                  <h2 style={{ paddingLeft: "10px" }}>Botak</h2>
-                  <p className="para">
-                     Some text that describes me lorem ipsum ipsum lorem.
-                  </p>
-                  <p className="para">botak@gmail.com</p>
-               </div>
+            <div className="productCard">
+               <a href="redball">
+                  <img src={redball} alt="redball" className="product" />
+               </a>
+               <h4 style={{ paddingLeft: "10px" }}>Price: $99</h4>
             </div>
-         </div> */}
-         sd
+            <div className="productCard">
+               <a href="/nikeBoots">
+                  <img src={nikeBoots} alt="nikeBoots" className="product" />
+               </a>
+               <h4 style={{ paddingLeft: "10px" }}>Price: $199</h4>
+            </div>
+            <div className="productCard">
+               <a href="/blackball">
+                  <img
+                     src={limitedjersey}
+                     alt="limitedjersey"
+                     className="product"
+                  />
+               </a>
+               <h4 style={{ paddingLeft: "10px" }}>Price: $139</h4>
+            </div>
+            <div className="productCard">
+               <a href="/blackball">
+                  <img src={blackball} alt="blackball" className="product" />
+               </a>
+               <h4 style={{ paddingLeft: "10px" }}>Price: $99</h4>
+            </div>
+         </div>
+         <br />
+         <br />
+         <br />
       </div>
    );
 };

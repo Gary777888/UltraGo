@@ -4,6 +4,7 @@
 
 
 .imageContainer{
+    /* margin-top: -16px; */
   /* background: url("../../images/stadium.jpg"); */
     /* width:100%;
     height: 400px; */
@@ -12,25 +13,25 @@
 
 .sliderimg1{
     display: block;
-    height: 400px;
+    height: 500px;
     /* height: %; */
-    width: 100%;
+    width: 1200px;
     margin-left: auto;
     margin-right: auto;
     /* object-fit: cover; */
 }
 .sliderimg2{
     display: block;
-    height: 400px;
+    height: 500px;
     /* height: 5%; */
-    width: 100%;
+    width: 1200px;
     margin-left: auto;
     margin-right: auto;
     /* object-fit: cover; */
 }
 .sliderimg3{
     display: block;
-    height: 400px;
+    height: 500px;
     /* height: 5%; */
     width: 100%;
     margin-left: auto;
@@ -44,10 +45,11 @@
 
 
 .homeHeader{
-    background-color: rgb(246, 161, 161);
+    /* background-color: rgb(246, 161, 161); */
+    font-weight: bold;
     font-family: Georgia, 'Times New Roman', Times, serif;
     text-align: center;
-    font-size: 45px;
+    font-size: 50px;
     padding: 15px;
     display: block;
     margin: 0;
@@ -65,9 +67,9 @@
     display: flex;
     /* flex-direction: row; */
     /* margin: auto; */
-    height: 350px;
+    /* height: 280px; */
     width: 50%;
-    background-color: aqua;
+    /* background-color: aqua; */
     /* padding-left: 20px; */
     /* padding-left: 40%; */
     /* margin-bottom: 100px; */
@@ -98,4 +100,41 @@
     /* padding-left: 20px; */
     /* margin-bottom: 100px; */
     /* padding: 0 8px; */
+}
+
+.homeButton{
+    background-color: lightsalmon;
+    width: 48%;
+    text-align: center;
+    font-size: 18px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    /* padding-left: 20px; */
+    margin-left: 10px;
+    border-radius: 10px;
+}
+
+.productHeader{
+    margin-top: 30px;
+    margin-bottom: 10px;
+    font-size: 30px;
+    text-align: center;
+}
+
+.productCard{
+    /* padding-left: 40px; */
+    width: 100%;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
+    /* box-shadow: 5px 10px rgb(52, 53, 56); */
+
+    border-radius: 20px;
+    /* padding-left: 40px; */
+    margin-left: 30px;
+    /* background-color: antiquewhite; */
+}
+
+.product {
+    /* padding-left: 20px; */
+    width: 90%;
+    /* border-radius: 20px; */
+    height: 100%
 }
