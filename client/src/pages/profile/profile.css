@@ -1,0 +1,121 @@
+.Profile{
+    margin: auto;
+}
+
+
+.profilePic{
+    margin-top: 20px;
+    margin-left: 100px ;
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+    width: 250px;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
+    /* box-shadow: 5px 10px rgb(52, 53, 56); */
+    border-style: solid;
+    border-radius: 50%;
+}
+
+
+.profileContainer{
+    position: relative;
+    margin: auto;
+    /* display: solid; */
+    border-style: solid;
+    border-radius: 20px;
+    height: 300px;
+    width: 70%;
+    /* outline-color: blue; */
+    background-color: rgb(211, 224, 230);
+    text-align: center;
+}
+
+.userPicture{
+    /* width: 100%;
+    border-radius: 20px;
+    height: 100% */
+    margin-top: 20px;
+    position: relative;
+    height: 250px;
+    overflow: hidden;
+    width: 250px;
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
+    /* box-shadow: 5px 10px rgb(52, 53, 56); */
+    border-style: solid;
+    border-radius: 50%;
+}
+
+.changePicButton{
+    border-radius: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: large;
+    text-align: center;
+    /* width: 20%;
+    height: 20%; */
+    background-color: rgb(234, 222, 222);
+    margin-left: 30px;
+}
+
+
+.chooseFileInput {
+    /* margin-bottom: 1000px; */
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: large;
+    text-align: center;
+    position: relative;
+    width: 30%;
+    background-color: antiquewhite;
+    margin-left: 10px;
+    /* padding-bottom: 20%; */
+}
+
+.profileInfo{
+    display: inline-block;
+    /* border: 1px solid red; */
+    padding: 1rem 1rem;
+    vertical-align: middle;
+    /* width: 70%; */
+    height: 60%;
+    /* margin-top: 10px; */
+    /* margin-top: 90px; */
+    /* padding-top: 10%; */
+}
+
+.labelProfile{
+    font-family: "Verdana";
+    float: left;
+    margin-top: 40px;
+}
+
+.profileInput{
+    display: inline-block;
+    /* display: block; */
+    /* border: 1px solid red; */
+    /* margin-top: 10px; */
+    padding: 1rem 1rem;
+    vertical-align: middle;
+    /* margin-top: 50px; */
+    height: 60%;
+    /* width: 70%; */
+    /* line-height: 60px; */
+    /* margin-top: 10px; */
+}
+
+.inputProfile{
+    width: 100%;
+    margin-top: 40px;
+    /* padding-top: %; */
+}
+
+.editButton{
+    border-radius: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: large;
+    text-align: center;
+    width: 20%;
+    height: 20%;
+    background-color: rgb(234, 222, 222);
+    margin-right: 100px;
+    margin-top: 20px;
+}
+

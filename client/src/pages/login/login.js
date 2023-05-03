@@ -4,6 +4,7 @@ import { useState } from "react";
 import authService from "../../services/auth";
 
 const Login = () => {
+   window.scrollTo(0, 0);
    const [username, setUsername] = useState("");
    const [password, setPassword] = useState("");
    const [message, setMessage] = useState("");

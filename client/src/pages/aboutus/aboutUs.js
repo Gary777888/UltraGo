@@ -5,6 +5,8 @@ import girl from "../../images/girl.jpg";
 import captain from "../../images/captain.jpg";
 
 const AboutUs = () => {
+   window.scrollTo(0, 0);
+
    return (
       <div className="AboutUs">
          <div className="titleContainer">

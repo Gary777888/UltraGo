@@ -42,7 +42,6 @@ const authService = {
    login,
    logout,
    getCurrentUser,
-   logout,
 };
 
 export default authService;

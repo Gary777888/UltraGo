@@ -1,7 +1,7 @@
-const db = require("./config/connect.js");
+const db = require("../config/connect.js");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const config = require("./config/auth.config.js");
+const config = require("../config/auth.config.js");
 
 module.exports.register = (req, res) => {
    //    // //Check user if exists

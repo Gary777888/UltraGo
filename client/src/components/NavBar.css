@@ -31,9 +31,11 @@
   
   .nav-menu {
     display: flex;
+    position: absolute;
+    right: 5px;
     list-style: none;
     text-align: center;
-    margin-right: 2rem;
+    /* margin-right: 2rem; */
   }
   
   .nav-links {
@@ -43,6 +45,29 @@
     height: 100%;
     border-bottom: 3px solid transparent;
   }
+
+  .nav-item-cart{
+    line-height: 50px;
+    margin-right: 1rem;
+  }
+
+  .nav-item-cart .active {
+    color: #ffdd40;
+    border: 1px solid #ffdd40;
+  }
+
+
+  .nav-links-cart{
+    color: #fff;
+    margin-bottom: 1000rem;
+    /* text-decoration: none; */
+    /* padding: 0.5rem 1rem; */
+    background-color: aqua;
+    height: 1%;
+    /* width: ; */
+    /* border-bottom: 3px solid transparent; */
+  }
+
   .fa-code {
     margin-left: 1rem;
   }
@@ -99,11 +124,11 @@
       color: #ffdd40;
       border: none;
     }
-    .nav-links {
+    /* .nav-links {
       padding: 1.5rem;
       width: 100%;
       display: table;
-    }
+    } */
   
     .nav-icon {
       display: block;

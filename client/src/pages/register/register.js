@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import authService from "../../services/auth";
 
 const Register = () => {
+   window.scrollTo(0, 0);
    const [username, setUsername] = useState("");
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");

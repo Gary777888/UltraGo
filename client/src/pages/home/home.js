@@ -18,6 +18,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 
 const Home = () => {
+   window.scrollTo(0, 0);
    const items = [
       <img src={argentina} alt="argentina" className="sliderimg1" />,
       <img src={singapore} alt="singapore" className="sliderimg2" />,
@@ -146,7 +147,7 @@ const Home = () => {
             Hurry Up while stocks last!!!
          </p>
          <br />
-         <div className="homeColumn">
+         <div className="homeColumn2">
             <br />
             <div className="productCard">
                <a href="redball">

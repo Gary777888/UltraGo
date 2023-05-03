@@ -4,14 +4,15 @@ import Home from "../pages/home/home";
 import Login from "../pages/login/login";
 import Register from "../pages/register/register";
 import AboutUs from "../pages/aboutus/aboutUs";
+import Profile from "../pages/profile/profile";
 import authService from "../services/auth";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+// import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 function NavBar() {
    const [click, setClick] = useState(false);
    const [currentUser, setCurrentUser] = useState("");
-
-   // const navigate = useNavigate();
 
    useEffect(() => {
       const user = authService.getCurrentUser();
@@ -20,17 +21,19 @@ function NavBar() {
          // console.log("setttt");
          setCurrentUser(user);
       }
+      window.scrollTo(0, 0);
    }, []);
 
    const logout = () => {
-      // window.location.reload();
       authService.logout();
       console.log("clicked logout");
-      // navigate("/");
    };
 
    console.log("check menu", currentUser);
-   const handleClick = () => setClick(!click);
+   const handleClick = () => {
+      // window.scrollTo(0, 0);
+      setClick(!click);
+   };
 
    return (
       <BrowserRouter>
@@ -45,17 +48,6 @@ function NavBar() {
                   <li className="nav-item">
                      <NavLink
                         exact
-                        to={"/"}
-                        activeClassName="active"
-                        className="nav-links"
-                        onClick={handleClick}
-                     >
-                        Home
-                     </NavLink>
-                  </li>
-                  <li className="nav-item">
-                     <NavLink
-                        exact
                         to={"/aboutUs"}
                         activeClassName="active"
                         className="nav-links"
@@ -66,6 +58,17 @@ function NavBar() {
                   </li>
                   {currentUser ? (
                      <>
+                        <li className="nav-item-cart">
+                           <NavLink
+                              exact
+                              to={"/cart"}
+                              activeClassName="active"
+                              className="nav-links"
+                              onClick={handleClick}
+                           >
+                              <ShoppingCartIcon />
+                           </NavLink>
+                        </li>
                         <li className="nav-item">
                            <NavLink
                               exact
@@ -78,13 +81,6 @@ function NavBar() {
                            </NavLink>
                         </li>
                         <li className="nav-item">
-                           {/* <NavLink
-                              exact
-                              onClick={logout}
-                              to={"/"}
-                              activeClassName="active"
-                              className="nav-links"
-                           > */}
                            <a
                               href="/"
                               activeClassName="active"
@@ -93,11 +89,21 @@ function NavBar() {
                            >
                               Logout
                            </a>
-                           {/* </NavLink> */}
                         </li>
                      </>
                   ) : (
                      <>
+                        <li className="nav-item-cart">
+                           <NavLink
+                              exact
+                              to={"/login"}
+                              activeClassName="active"
+                              className="nav-links"
+                              onClick={handleClick}
+                           >
+                              <ShoppingCartIcon />
+                           </NavLink>
+                        </li>
                         <li className="nav-item">
                            <NavLink
                               exact
@@ -133,6 +139,7 @@ function NavBar() {
             <Route exact path="/aboutUs" element={<AboutUs />} />
             <Route exact path="/register" element={<Register />} />
             <Route exact path="/login" element={<Login />} />
+            <Route exact path="/profile" element={<Profile />} />
          </Routes>
       </BrowserRouter>
    );
