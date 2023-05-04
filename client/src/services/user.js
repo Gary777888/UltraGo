@@ -6,12 +6,18 @@ const upload = (formData) => {
    // formData.append("fileName", fileName);
    console.log("outside");
    return axios.post(API_URL + "profile", {
-      body: formData,
+      // body: formData,
    });
+};
+
+const getUserPic = () => {
+   console.log("get pic");
+   return axios.get(API_URL + "getUserPic");
 };
 
 const userService = {
    upload,
+   getUserPic,
 };
 
 export default userService;

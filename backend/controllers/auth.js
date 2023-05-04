@@ -89,6 +89,7 @@ module.exports.login = (req, res) => {
                username: others.username,
                email: others.email,
                name: others.name,
+               profilePic: others.profilePic,
                accessToken: token,
                message: `Welcome ${others.username}`,
             }
