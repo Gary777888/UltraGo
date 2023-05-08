@@ -23,9 +23,10 @@ const Profile = () => {
       }
 
       axios
-         .get("http://localhost:8000/")
+         .get("http://localhost:8000/api/getUserPic")
          .then((res) => {
-            setData(res.data[1]);
+            console.log("ressss check....", res);
+            setData(res.data);
          })
          .catch((err) => {
             console.log(err);
@@ -72,9 +73,9 @@ const Profile = () => {
          <div className="profileContainer">
             {/* <div className="profilePic"> */}
             <img
-               src={"http://localhost:8000/images/" + data}
-               alt="captain"
-               style={{ width: "1000px", height: "200px" }}
+               src={"http://localhost:8000/images/" + data.profilePic}
+               alt="ProfilePic"
+               className="profilePic"
             />
             {/* </div> */}
             <input
@@ -103,8 +104,12 @@ const Profile = () => {
             </div>
             <div className="profileInput">
                <input className="inputProfile"></input>
+               <br />
                <input className="inputProfile"></input>
+               <br />
                <input className="inputProfile"></input>
+               <br />
+               <br />
                <button className="editButton">Edit Profile</button>
             </div>
          </div>

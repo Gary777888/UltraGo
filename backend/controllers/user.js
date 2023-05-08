@@ -98,7 +98,7 @@ module.exports.testinguser = (req, res) => {
 }
 
 module.exports.getUserPic = (req, res) => {
-    const q = "SELECT * from users WHERE username = ?";
+    const q = "SELECT * from users";
     const id = 2;
     // const jsonData = pm.response.json().message
     // pm.visualizer.set(`
@@ -106,7 +106,7 @@ module.exports.getUserPic = (req, res) => {
     // <img src="${jsonData}">
     // </body>`);
 
-    db.query(q, [req.body.username], (err, data) => {
+    db.query(q, (err, data) => {
         if (err) {
             return res.status(500).json(err);
          }

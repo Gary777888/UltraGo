@@ -1,19 +1,21 @@
 .Profile{
     margin: auto;
+    /* max-width: 70%; */
 }
 
 
 .profilePic{
     margin-top: 20px;
-    margin-left: 100px ;
-    position: relative;
+    margin-left: 20px;
+    /* position: relative; */
     height: 250px;
-    overflow: hidden;
+    /* overflow: hidden; */
     width: 250px;
     /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); */
     /* box-shadow: 5px 10px rgb(52, 53, 56); */
     border-style: solid;
     border-radius: 50%;
+    float: left;
 }
 
 
@@ -23,8 +25,9 @@
     /* display: solid; */
     border-style: solid;
     border-radius: 20px;
+    /* border: yellow; */
     height: 300px;
-    width: 70%;
+    max-width: 50%;
     /* outline-color: blue; */
     background-color: rgb(211, 224, 230);
     text-align: center;
@@ -65,20 +68,25 @@
     position: relative;
     width: 30%;
     background-color: antiquewhite;
-    margin-left: 10px;
+    /* border: 1px solid red; */
+    margin-top: 200px;
+    /* float: top; */
+    /* margin-left: 10px; */
     /* padding-bottom: 20%; */
 }
 
 .profileInfo{
-    display: inline-block;
-    /* border: 1px solid red; */
+    /* display: inline-block; */
+    float: left;
+    margin-left: 30px;
+    border: 1px solid red;
     padding: 1rem 1rem;
     vertical-align: middle;
     /* width: 70%; */
-    height: 60%;
-    /* margin-top: 10px; */
-    /* margin-top: 90px; */
-    /* padding-top: 10%; */
+    /* height: 60%; */
+    /* margin-top: 10px;
+    margin-top: 90px;
+    padding-top: 10%; */
 }
 
 .labelProfile{
@@ -88,10 +96,15 @@
 }
 
 .profileInput{
-    display: inline-block;
+    /* display: inline-block; */
+    /* float: right; */
+    /* margin-right: 200px; */
     /* display: block; */
-    /* border: 1px solid red; */
+    border: 1px solid rgb(0, 255, 4);
+    /* max-width: 100%; */
+    /* float: left; */
     /* margin-top: 10px; */
+    margin-right: 100px;
     padding: 1rem 1rem;
     vertical-align: middle;
     /* margin-top: 50px; */
@@ -102,9 +115,8 @@
 }
 
 .inputProfile{
-    width: 100%;
+    width: 60%;
     margin-top: 40px;
-    /* padding-top: %; */
 }
 
 .editButton{
@@ -115,7 +127,7 @@
     width: 20%;
     height: 20%;
     background-color: rgb(234, 222, 222);
-    margin-right: 100px;
-    margin-top: 20px;
+    /* margin-right: 100px; */
+    /* margin-top: 20px; */
 }
 
