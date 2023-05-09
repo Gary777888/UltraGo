@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import userService from "../../services/auth";
 import authService from "../../services/auth";
 import "./profile.css";
+import Dialog from "@mui/material/Dialog";
+import DialogTitle from "@mui/material/DialogTitle";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
 
 import axios from "axios";
 
@@ -13,6 +17,7 @@ const Profile = () => {
    const [fileName, setFileName] = useState("");
    const [data, setData] = useState([]);
    const [currentUser, setCurrentUser] = useState("");
+   const [open, setOpen] = useState(false);
 
    useEffect(() => {
       const user = authService.getCurrentUser();
@@ -36,6 +41,14 @@ const Profile = () => {
    const saveFile = (e) => {
       setImage(e.target.files[0]);
       setFileName(e.target.files[0].name);
+   };
+
+   const handleOpen = () => {
+      setOpen(true);
+   };
+
+   const handleClose = () => {
+      setOpen(false);
    };
 
    console.log("check data", data);
@@ -70,22 +83,12 @@ const Profile = () => {
       <div className="Profile">
          <h2 className="pageTitle">{currentUser.username} Profile</h2>
          <br />
-         <div className="profileContainer">
-            {/* <div className="profilePic"> */}
+         <div className="imageContainer">
             <img
                src={"http://localhost:8000/images/" + data.profilePic}
                alt="ProfilePic"
                className="profilePic"
             />
-            {/* </div> */}
-            <input
-               type="file"
-               className="chooseFileInput"
-               onChange={saveFile}
-            />
-            <button className="changePicButton" onClick={changeFile}>
-               Change Profile Picture
-            </button>
          </div>
          <br />
          <div className="profileContainer">
@@ -101,19 +104,79 @@ const Profile = () => {
                <b>
                   <label className="labelProfile">Email: </label>
                </b>
+               <br />
+               <b>
+                  <label className="labelProfile">Password: </label>
+               </b>
             </div>
             <div className="profileInput">
-               <input className="inputProfile"></input>
+               <input
+                  className="inputProfile"
+                  value={currentUser.name}
+                  disabled
+               ></input>
                <br />
-               <input className="inputProfile"></input>
+               <input
+                  className="inputProfile"
+                  value={currentUser.username}
+                  disabled
+               ></input>
                <br />
-               <input className="inputProfile"></input>
+               <input
+                  className="inputProfile"
+                  value={currentUser.email}
+                  disabled
+               ></input>
+               <br />
+               <input
+                  className="inputProfile"
+                  value="**************"
+                  disabled
+               ></input>
                <br />
                <br />
+               <button className="changeImageButton" onClick={handleOpen}>
+                  Change Picture
+               </button>
+               <Dialog open={open} onClose={handleClose}>
+                  <DialogTitle className="changePicTitle">
+                     Change Profile Picture
+                  </DialogTitle>
+                  <DialogContent>
+                     <div
+                        style={{
+                           textAlign: "center",
+                           marginTop: "10px",
+                           marginBottom: "10px",
+                        }}
+                     >
+                        <img
+                           src={
+                              "http://localhost:8000/images/" + data.profilePic
+                           }
+                           alt="ProfilePic"
+                           className="profilePicPopUp"
+                        />
+                     </div>
+                     <div>
+                        <input
+                           type="file"
+                           className="chooseFileInput"
+                           onChange={saveFile}
+                        />
+                        <button
+                           className="changePicButton"
+                           onClick={changeFile}
+                        >
+                           Change Profile Picture
+                        </button>
+                     </div>
+                  </DialogContent>
+                  <DialogActions onClick={handleClose}>Okay</DialogActions>
+               </Dialog>
                <button className="editButton">Edit Profile</button>
             </div>
          </div>
-         sss
       </div>
    );
 };

@@ -151,6 +151,7 @@ const Register = () => {
                      type="text"
                      placeholder="Name"
                      name="name"
+                     required
                      onChange={onChangeName}
                   />
                   {/* {err && err} */}
