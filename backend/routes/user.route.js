@@ -24,10 +24,6 @@ var upload = multer({
 });
 
 module.exports = function (app) {
-   // app.use(function(res,req,next) => {
-
-   // })
-   //    router.post("/api/profile", userController.upload);
    router.post("/api/upload", upload.single("image"), (req, res) => {
       console.log(req.file);
       if (
@@ -41,31 +37,37 @@ module.exports = function (app) {
       } else {
          console.log(req.file.filename);
          const image = req.file.filename;
+         console.log("check data...", req);
          const id = 2;
-
          var imgsrc =
             "http://localhost:8000/api/getUserPic/" + req.file.filename;
-         var insertData = "UPDATE users SET `profilePic` = ?";
-         db.query(insertData, [image], (err, result) => {
-            console.log("inside query");
+         var insertData =
+            "UPDATE users SET `profilePic` = ? WHERE username = ?";
+         db.query(insertData, [image, req.body.username], (err, data) => {
+            console.log("username checkkkk", req.body.username);
             if (err) {
                console.log("errrrrr");
                return res.json({ Message: "Error" });
             } else {
                console.log("passssssss");
-               return res.json({ Status: "Success" });
+               return res.json({
+                  Status: "Success",
+                  Image: req.file.filename,
+                  username: req.body.username,
+               });
             }
             // console.log("file uploaded");
          });
       }
    });
+
    app.use(express.static("public"));
    //    app.use(
    //       "/api/uploads",
    //       express.static(path.resolve(__dirname, "./uploads"))
    //    );
    router.get("/api/testinguser", userController.testinguser);
-   router.get("/api/getUserPic", userController.getUserPic);
+   router.post("/api/getUserPic", userController.getUserPic);
    console.log("user route");
    app.use("/", router);
 };

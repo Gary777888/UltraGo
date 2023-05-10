@@ -4,15 +4,17 @@ const API_URL = "http://localhost:8000/api/";
 const upload = (formData) => {
    // formData.append("image", image);
    // formData.append("fileName", fileName);
-   console.log("outside");
-   return axios.post(API_URL + "profile", {
-      // body: formData,
+   console.log("outside", formData);
+   return axios.post(API_URL + "upload", {
+      formData,
    });
 };
 
-const getUserPic = () => {
-   console.log("get pic");
-   return axios.get(API_URL + "getUserPic");
+const getUserPic = (username) => {
+   console.log("get pic", username);
+   return axios.post(API_URL + "getUserPic", {
+      username,
+   });
 };
 
 const userService = {

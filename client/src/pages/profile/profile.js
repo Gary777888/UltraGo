@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
-import userService from "../../services/auth";
+import userService from "../../services/user";
 import authService from "../../services/auth";
 import "./profile.css";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
+import Button from "@mui/material/Button";
 
 import axios from "axios";
 
@@ -18,6 +19,7 @@ const Profile = () => {
    const [data, setData] = useState([]);
    const [currentUser, setCurrentUser] = useState("");
    const [open, setOpen] = useState(false);
+   const [successfulChanged, setSuccessfulChanged] = useState(false);
 
    useEffect(() => {
       const user = authService.getCurrentUser();
@@ -27,14 +29,25 @@ const Profile = () => {
          setCurrentUser(user);
       }
 
+      // console.log("user checkkkkk", user, currentUser)
+      // userService
+      //    .getUserPic(currentUser.username)
+      //    .then((res) => {
+      //       console.log("ressss check....", res);
+      //       setData(res.data);
+      //    })
+      //    .catch((err) => {
+      //       console.log(err);
+      //    });
       axios
-         .get("http://localhost:8000/api/getUserPic")
+         .post("http://localhost:8000/api/getUserPic", user.username)
          .then((res) => {
             console.log("ressss check....", res);
             setData(res.data);
          })
          .catch((err) => {
-            console.log(err);
+            console.log("noooo", err);
+            console.log("no check 2", user.username, user.profilePic);
          });
    }, []);
 
@@ -48,7 +61,12 @@ const Profile = () => {
    };
 
    const handleClose = () => {
-      setOpen(false);
+      if (successfulChanged === true) {
+         setOpen(false);
+         window.location.reload();
+      } else {
+         setOpen(false);
+      }
    };
 
    console.log("check data", data);
@@ -56,11 +74,15 @@ const Profile = () => {
       const formData = new FormData();
       formData.append("image", image);
       formData.append("fileName", fileName);
-      axios
-         .post("http://localhost:8000/api/upload", formData)
+
+      userService
+         .upload(formData)
          .then((res) => {
             if (res.data.Status === "Success") {
                console.log("Succeded");
+               setSuccessfulChanged(true);
+               setOpen(false);
+               window.location.reload();
             } else {
                console.log("Failed", res);
             }
@@ -68,6 +90,23 @@ const Profile = () => {
          .catch((err) => {
             console.log(err);
          });
+
+      // axios
+      //    .post("http://localhost:8000/api/upload", formData)
+      //    .then((res) => {
+      //       if (res.data.Status === "Success") {
+      //          console.log("Succeded");
+      //          setSuccessfulChanged(true);
+      //          setOpen(false);
+      //          window.location.reload();
+      //       } else {
+      //          console.log("Failed", res);
+      //       }
+      //    })
+      //    .catch((err) => {
+      //       console.log(err);
+      //    });
+
       // try {
       //    userService.upload(formData).then((res) => {
       //       console.log(res);
@@ -164,15 +203,32 @@ const Profile = () => {
                            className="chooseFileInput"
                            onChange={saveFile}
                         />
-                        <button
+                        {/* <button
                            className="changePicButton"
                            onClick={changeFile}
                         >
                            Change Profile Picture
-                        </button>
+                        </button> */}
                      </div>
                   </DialogContent>
-                  <DialogActions onClick={handleClose}>Okay</DialogActions>
+
+                  <DialogActions>
+                     <Button
+                        onClick={changeFile}
+                        style={{
+                           cursor: "pointer",
+                           marginRight: "20rem",
+                        }}
+                     >
+                        Change Picture
+                     </Button>
+                     <Button
+                        onClick={handleClose}
+                        style={{ cursor: "pointer" }}
+                     >
+                        Okay
+                     </Button>
+                  </DialogActions>
                </Dialog>
                <button className="editButton">Edit Profile</button>
             </div>
