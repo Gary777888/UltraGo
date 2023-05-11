@@ -56,6 +56,7 @@ module.exports.login = (req, res) => {
    const q = "SELECT * FROM users WHERE username = ?";
    console.log("checkkkkkk", req);
    db.query(q, [req.body.username], (err, data) => {
+      console.log("login data....", data);
       if (err) {
          return res.status(500).json(err);
       }

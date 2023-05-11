@@ -39,8 +39,8 @@ module.exports = function (app) {
          const image = req.file.filename;
          console.log("check data...", req);
          const id = 2;
-         var imgsrc =
-            "http://localhost:8000/api/getUserPic/" + req.file.filename;
+         // var imgsrc =
+         //    "http://localhost:8000/api/getUserPic/" + req.file.filename;
          var insertData =
             "UPDATE users SET `profilePic` = ? WHERE username = ?";
          db.query(insertData, [image, req.body.username], (err, data) => {
@@ -68,6 +68,7 @@ module.exports = function (app) {
    //    );
    router.get("/api/testinguser", userController.testinguser);
    router.post("/api/getUserPic", userController.getUserPic);
+   router.put("/api/updateProfile", userController.changedProfile);
    console.log("user route");
    app.use("/", router);
 };

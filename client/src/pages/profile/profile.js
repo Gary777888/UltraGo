@@ -11,6 +11,7 @@ import Button from "@mui/material/Button";
 import axios from "axios";
 
 import captain from "../../images/captain.jpg";
+import { user } from "fontawesome";
 
 const Profile = () => {
    window.scrollTo(0, 0);
@@ -20,40 +21,46 @@ const Profile = () => {
    const [currentUser, setCurrentUser] = useState("");
    const [open, setOpen] = useState(false);
    const [successfulChanged, setSuccessfulChanged] = useState(false);
+   const [userUsername, setUserUsername] = useState("");
+   const [open2, setOpen2] = useState(false);
+   const [message, setMessage] = useState("");
+
+   const [email, setEmail] = useState("");
+   const [password, setPassword] = useState("");
+   const [name, setName] = useState("");
+   const [passwordcheck, setPasswordcheck] = useState(false);
+   const [emailcheck, setEmailcheck] = useState(false);
 
    useEffect(() => {
       const user = authService.getCurrentUser();
-
       if (user) {
          // console.log("setttt");
          setCurrentUser(user);
+         setUserUsername(currentUser.username);
       }
 
-      // console.log("user checkkkkk", user, currentUser)
-      // userService
-      //    .getUserPic(currentUser.username)
-      //    .then((res) => {
-      //       console.log("ressss check....", res);
-      //       setData(res.data);
-      //    })
-      //    .catch((err) => {
-      //       console.log(err);
-      //    });
-      axios
-         .post("http://localhost:8000/api/getUserPic", user.username)
+      console.log("check user....", userUsername);
+      userService
+         .getUserPic(currentUser.username)
          .then((res) => {
             console.log("ressss check....", res);
             setData(res.data);
          })
          .catch((err) => {
-            console.log("noooo", err);
-            console.log("no check 2", user.username, user.profilePic);
+            console.log(err);
          });
-   }, []);
+   }, [currentUser.username, userUsername]);
+
+   console.log("outside checkkkkk", userUsername);
 
    const saveFile = (e) => {
-      setImage(e.target.files[0]);
-      setFileName(e.target.files[0].name);
+      if (!e.target.files[0]) {
+         setImage("");
+         setFileName("");
+      } else {
+         setImage(e.target.files[0]);
+         setFileName(e.target.files[0].name);
+      }
    };
 
    const handleOpen = () => {
@@ -70,30 +77,37 @@ const Profile = () => {
    };
 
    console.log("check data", data);
+
    const changeFile = async (e) => {
       const formData = new FormData();
       formData.append("image", image);
       formData.append("fileName", fileName);
+      formData.append("username", currentUser.username);
+      console.log("inside..form...", formData);
 
-      userService
-         .upload(formData)
-         .then((res) => {
-            if (res.data.Status === "Success") {
-               console.log("Succeded");
-               setSuccessfulChanged(true);
-               setOpen(false);
-               window.location.reload();
-            } else {
-               console.log("Failed", res);
-            }
-         })
-         .catch((err) => {
-            console.log(err);
-         });
-
-      // axios
-      //    .post("http://localhost:8000/api/upload", formData)
+      if (image || fileName !== "") {
+         axios
+            .post("http://localhost:8000/api/upload", formData)
+            .then((res) => {
+               if (res.data.Status === "Success") {
+                  console.log("Succeded");
+                  setSuccessfulChanged(true);
+                  setOpen(false);
+                  window.location.reload();
+               } else {
+                  console.log("Failed", res);
+               }
+            })
+            .catch((err) => {
+               console.log(err);
+            });
+      } else {
+         alert("Empty");
+      }
+      // userService
+      //    .upload(formData)
       //    .then((res) => {
+      //       console.log("LOLOLOLOLLOL");
       //       if (res.data.Status === "Success") {
       //          console.log("Succeded");
       //          setSuccessfulChanged(true);
@@ -116,6 +130,85 @@ const Profile = () => {
       //    console.log(ex);
       //    console.log("faillll");
       // }
+   };
+
+   const handleOpen2 = () => {
+      setOpen2(true);
+   };
+
+   const handleClose2 = () => {
+      setOpen2(false);
+   };
+
+   const onChangeEmail = (e) => {
+      const check = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+      const ValidationEmail = check.test(e.target.value);
+      if (ValidationEmail === false) {
+         setEmailcheck(false);
+      } else {
+         setEmailcheck(true);
+         const EMAIL = e.target.value;
+         setEmail(EMAIL);
+         console.log("email check", EMAIL, email);
+      }
+   };
+
+   const onChangePassword = (e) => {
+      const check =
+         /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,10}$/;
+      const ValidationPassword = check.test(e.target.value);
+      if (ValidationPassword === false) {
+         setPasswordcheck(false);
+         console.log("error password..", password, e.target.value);
+      } else {
+         setPasswordcheck(true);
+         const PASSWORD = e.target.value;
+         setPassword(PASSWORD);
+         console.log("password check", PASSWORD, password);
+      }
+   };
+
+   const onChangeName = (e) => {
+      const NAME = e.target.value;
+      setName(NAME);
+      console.log("name check", NAME, name);
+   };
+
+   const changedProfile = (e) => {
+      e.preventDefault();
+      if (passwordcheck === false) {
+         setMessage(
+            "The password must be 6 - 10 characters and contains one alphabet, one capital letter, one number and one special character."
+         );
+         alert(message);
+      } else if (emailcheck === false) {
+         setMessage("The email is not in correct format");
+         alert(message);
+      } else {
+         userService
+            .editProfile(currentUser.username, email, password, name)
+            .then((res) => {
+               setMessage(res.data);
+               alert(message);
+               setOpen2(false);
+            })
+            .catch((error) => {
+               console.log("error backend...", error);
+               if (error.response.status === 404) {
+                  setMessage("API Error");
+                  console.log("failll error 1", error.response.data);
+                  alert(message);
+               } else if (error.response.status === 409) {
+                  setMessage(error.response.data);
+                  console.log("failll error 2", error.response.data);
+                  alert(message);
+               } else {
+                  setMessage(error.config.message);
+                  console.log("failll error 3", error);
+                  alert(message);
+               }
+            });
+      }
    };
 
    return (
@@ -226,11 +319,68 @@ const Profile = () => {
                         onClick={handleClose}
                         style={{ cursor: "pointer" }}
                      >
-                        Okay
+                        Cancel
                      </Button>
                   </DialogActions>
                </Dialog>
-               <button className="editButton">Edit Profile</button>
+               <button className="editButton" onClick={handleOpen2}>
+                  Edit Profile
+               </button>
+               <Dialog open={open2} onClose={handleClose2}>
+                  <DialogTitle className="changePicTitle">
+                     Edit Profile: <strong>{currentUser.username}</strong>
+                  </DialogTitle>
+                  <DialogContent>
+                     <div
+                        style={{
+                           textAlign: "center",
+                           marginTop: "10px",
+                           marginBottom: "10px",
+                        }}
+                     >
+                        <strong>Name:</strong>
+                        <input
+                           type="text"
+                           placeholder="Name"
+                           name="name"
+                           onChange={onChangeName}
+                        ></input>
+                        <br />
+                        <strong>Email:</strong>
+                        <input
+                           type="email"
+                           placeholder="Email"
+                           name="email"
+                           onChange={onChangeEmail}
+                        ></input>
+                        <br />
+                        <strong>Password:</strong>
+                        <input
+                           type="password"
+                           placeholder="Password"
+                           name="password"
+                           onChange={onChangePassword}
+                        ></input>
+                     </div>
+                  </DialogContent>
+                  <DialogActions>
+                     <Button
+                        onClick={changedProfile}
+                        style={{
+                           cursor: "pointer",
+                           marginRight: "20rem",
+                        }}
+                     >
+                        Save
+                     </Button>
+                     <Button
+                        onClick={handleClose2}
+                        style={{ cursor: "pointer" }}
+                     >
+                        Cancel
+                     </Button>
+                  </DialogActions>
+               </Dialog>
             </div>
          </div>
       </div>
