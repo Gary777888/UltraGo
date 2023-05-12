@@ -9,9 +9,10 @@ import DialogContent from "@mui/material/DialogContent";
 import Button from "@mui/material/Button";
 
 import axios from "axios";
-
-import captain from "../../images/captain.jpg";
-import { user } from "fontawesome";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useParams } from "react-router-dom";
+import { type } from "@testing-library/user-event/dist/type";
 
 const Profile = () => {
    window.scrollTo(0, 0);
@@ -21,7 +22,6 @@ const Profile = () => {
    const [currentUser, setCurrentUser] = useState("");
    const [open, setOpen] = useState(false);
    const [successfulChanged, setSuccessfulChanged] = useState(false);
-   const [userUsername, setUserUsername] = useState("");
    const [open2, setOpen2] = useState(false);
    const [message, setMessage] = useState("");
 
@@ -31,17 +31,32 @@ const Profile = () => {
    const [passwordcheck, setPasswordcheck] = useState(false);
    const [emailcheck, setEmailcheck] = useState(false);
 
-   useEffect(() => {
-      const user = authService.getCurrentUser();
-      if (user) {
-         // console.log("setttt");
-         setCurrentUser(user);
-         setUserUsername(currentUser.username);
-      }
+   const [emailEmpty, setEmailEmpty] = useState(true);
+   const [passwordEmpty, setPasswordEmpty] = useState(true);
 
-      console.log("check user....", userUsername);
-      userService
-         .getUserPic(currentUser.username)
+   // const [currentUserDetails, setCurrentUserDetails] = useState("");
+
+   const { username } = useParams();
+
+   // const valueName = currentUser[0].name;
+
+   useEffect(() => {
+      // const user = authService.getCurrentUser();
+      // if (user) {
+      //    // console.log("setttt");
+      //    setCurrentUser(user);
+      // }
+
+      getUserProfile(username);
+      getUserPic(username);
+   }, [username]);
+
+   console.log("username check...", username);
+   console.log("current user check...", currentUser);
+   // console.log("fkfkfkfkf", typeof currentUser[0].name);
+   const getUserPic = async (username) => {
+      await userService
+         .getUserPic(username)
          .then((res) => {
             console.log("ressss check....", res);
             setData(res.data);
@@ -49,10 +64,22 @@ const Profile = () => {
          .catch((err) => {
             console.log(err);
          });
-   }, [currentUser.username, userUsername]);
+   };
 
-   console.log("outside checkkkkk", userUsername);
+   const getUserProfile = async (username) => {
+      await userService
+         .getUser(username)
+         .then((res) => {
+            setCurrentUser(res.data);
+            // setCurrentUserDetails(res.data);
+            console.log("check getuser res...", res.data);
+         })
+         .catch((err) => {
+            console.log("errroroorr", err);
+         });
+   };
 
+   // console.log("CurrentUserDetails...", currentUserDetails);
    const saveFile = (e) => {
       if (!e.target.files[0]) {
          setImage("");
@@ -77,12 +104,12 @@ const Profile = () => {
    };
 
    console.log("check data", data);
-
+   console.log("image checkkkk", image);
    const changeFile = async (e) => {
       const formData = new FormData();
       formData.append("image", image);
       formData.append("fileName", fileName);
-      formData.append("username", currentUser.username);
+      formData.append("username", username);
       console.log("inside..form...", formData);
 
       if (image || fileName !== "") {
@@ -92,6 +119,10 @@ const Profile = () => {
                if (res.data.Status === "Success") {
                   console.log("Succeded");
                   setSuccessfulChanged(true);
+                  // localStorage.setItem(
+                  //    currentUser.profilePic,
+                  //    JSON.stringify(data)
+                  // );
                   setOpen(false);
                   window.location.reload();
                } else {
@@ -143,13 +174,19 @@ const Profile = () => {
    const onChangeEmail = (e) => {
       const check = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
       const ValidationEmail = check.test(e.target.value);
-      if (ValidationEmail === false) {
-         setEmailcheck(false);
+      if (e.target.length) {
+         setEmailEmpty(false);
+         if (ValidationEmail === false) {
+            setEmailcheck(false);
+         } else {
+            setEmailcheck(true);
+            const EMAIL = e.target.value;
+            setEmail(EMAIL);
+            console.log("email check", EMAIL, email);
+         }
       } else {
-         setEmailcheck(true);
-         const EMAIL = e.target.value;
-         setEmail(EMAIL);
-         console.log("email check", EMAIL, email);
+         setEmailEmpty(true);
+         // e.target.value = currentUser.email;
       }
    };
 
@@ -157,14 +194,20 @@ const Profile = () => {
       const check =
          /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,10}$/;
       const ValidationPassword = check.test(e.target.value);
-      if (ValidationPassword === false) {
-         setPasswordcheck(false);
-         console.log("error password..", password, e.target.value);
+      if (e.target.length) {
+         setPasswordEmpty(false);
+         if (ValidationPassword === false) {
+            setPasswordcheck(false);
+            console.log("error password..", password, e.target.value);
+         } else {
+            setPasswordcheck(true);
+            const PASSWORD = e.target.value;
+            setPassword(PASSWORD);
+            console.log("password check", PASSWORD, password);
+         }
       } else {
-         setPasswordcheck(true);
-         const PASSWORD = e.target.value;
-         setPassword(PASSWORD);
-         console.log("password check", PASSWORD, password);
+         setPasswordEmpty(false);
+         // e.target.value = currentUser.password;
       }
    };
 
@@ -176,21 +219,27 @@ const Profile = () => {
 
    const changedProfile = (e) => {
       e.preventDefault();
-      if (passwordcheck === false) {
+      if (passwordcheck === false && passwordEmpty === false) {
          setMessage(
             "The password must be 6 - 10 characters and contains one alphabet, one capital letter, one number and one special character."
          );
-         alert(message);
-      } else if (emailcheck === false) {
+         // alert(message);
+         toast.error(message);
+      } else if (emailcheck === false && emailEmpty === false) {
          setMessage("The email is not in correct format");
-         alert(message);
+         // alert(message);
+         toast.error(message);
       } else {
          userService
-            .editProfile(currentUser.username, email, password, name)
+            .editProfile(email, password, name, username)
             .then((res) => {
                setMessage(res.data);
-               alert(message);
+               // alert(message);
+               toast.success(message);
                setOpen2(false);
+               setTimeout(function () {
+                  window.location.reload();
+               }, 3000);
             })
             .catch((error) => {
                console.log("error backend...", error);
@@ -198,14 +247,17 @@ const Profile = () => {
                   setMessage("API Error");
                   console.log("failll error 1", error.response.data);
                   alert(message);
+                  // toast.error(message);
                } else if (error.response.status === 409) {
                   setMessage(error.response.data);
                   console.log("failll error 2", error.response.data);
                   alert(message);
+                  // toast.error(message);
                } else {
                   setMessage(error.config.message);
                   console.log("failll error 3", error);
-                  alert(message);
+                  // alert(message);
+                  toast.error(message);
                }
             });
       }
@@ -213,7 +265,19 @@ const Profile = () => {
 
    return (
       <div className="Profile">
-         <h2 className="pageTitle">{currentUser.username} Profile</h2>
+         <ToastContainer
+            position="top-right"
+            autoClose={5000}
+            hideProgressBar={false}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="light"
+         />
+         <h2 className="pageTitle">{username} Profile</h2>
          <br />
          <div className="imageContainer">
             <img
@@ -250,7 +314,7 @@ const Profile = () => {
                <br />
                <input
                   className="inputProfile"
-                  value={currentUser.username}
+                  value={username}
                   disabled
                ></input>
                <br />
@@ -328,39 +392,74 @@ const Profile = () => {
                </button>
                <Dialog open={open2} onClose={handleClose2}>
                   <DialogTitle className="changePicTitle">
-                     Edit Profile: <strong>{currentUser.username}</strong>
+                     Edit Profile: <strong>{username}</strong>
                   </DialogTitle>
                   <DialogContent>
                      <div
                         style={{
-                           textAlign: "center",
-                           marginTop: "10px",
-                           marginBottom: "10px",
+                           marginTop: "30px",
                         }}
                      >
-                        <strong>Name:</strong>
-                        <input
-                           type="text"
-                           placeholder="Name"
-                           name="name"
-                           onChange={onChangeName}
-                        ></input>
-                        <br />
-                        <strong>Email:</strong>
-                        <input
-                           type="email"
-                           placeholder="Email"
-                           name="email"
-                           onChange={onChangeEmail}
-                        ></input>
-                        <br />
-                        <strong>Password:</strong>
-                        <input
-                           type="password"
-                           placeholder="Password"
-                           name="password"
-                           onChange={onChangePassword}
-                        ></input>
+                        <div
+                           // style={{
+                           //    position: "relative",
+                           //    marginLeft: "10px",
+                           //    textAlign: "left",
+                           //    marginTop: "20px",
+                           // }}
+                           className="dialogInfo"
+                        >
+                           <strong
+                              style={{
+                                 marginBottom: "10px",
+                                 display: "inline-block",
+                              }}
+                           >
+                              Name:
+                           </strong>
+                           <br />
+                           <strong
+                              style={{
+                                 marginBottom: "10px",
+                                 display: "inline-block",
+                              }}
+                           >
+                              Email:
+                           </strong>
+                           <br />
+                           <strong>Password:</strong>
+                        </div>
+                        <div className="dialogInput">
+                           <input
+                              type="text"
+                              placeholder="Name"
+                              name="name"
+                              onChange={onChangeName}
+                              style={{
+                                 marginBottom: "8px",
+                                 paddingRight: "60px",
+                              }}
+                           ></input>
+                           <br />
+                           <input
+                              type="email"
+                              placeholder="Email"
+                              name="email"
+                              onChange={onChangeEmail}
+                              style={{
+                                 marginBottom: "8px",
+                                 paddingRight: "60px",
+                              }}
+                           ></input>
+                           <br />
+                           <input
+                              type="password"
+                              placeholder="Password"
+                              name="password"
+                              onChange={onChangePassword}
+                              style={{ paddingRight: "60px" }}
+                           ></input>
+                        </div>
                      </div>
                   </DialogContent>
                   <DialogActions>

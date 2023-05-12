@@ -35,7 +35,7 @@ const getUserPic = (username) => {
 
 const editProfile = (email, password, name, username) => {
    console.log("edit profile....", username, email, password, name);
-   return axios.post(API_URL + "updateProfile", {
+   return axios.put(API_URL + "updateProfile", {
       email,
       password,
       name,
@@ -43,10 +43,16 @@ const editProfile = (email, password, name, username) => {
    });
 };
 
+const getUser = (username) => {
+   console.log("getUser function....", username);
+   return axios.get(API_URL + `getUser/${username}`);
+};
+
 const userService = {
    upload,
    getUserPic,
    editProfile,
+   getUser,
 };
 
 export default userService;

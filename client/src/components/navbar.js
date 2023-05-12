@@ -72,7 +72,7 @@ function NavBar() {
                         <li className="nav-item">
                            <NavLink
                               exact
-                              to={"/profile"}
+                              to={`/profile/${currentUser.username}`}
                               activeClassName="active"
                               className="nav-links"
                               onClick={handleClick}
@@ -139,7 +139,7 @@ function NavBar() {
             <Route exact path="/aboutUs" element={<AboutUs />} />
             <Route exact path="/register" element={<Register />} />
             <Route exact path="/login" element={<Login />} />
-            <Route exact path="/profile" element={<Profile />} />
+            <Route exact path="/profile/:username" element={<Profile />} />
          </Routes>
       </BrowserRouter>
    );

@@ -10,7 +10,6 @@ module.exports.testinguser = (req, res) => {
 
 module.exports.getUserPic = (req, res) => {
    const q = "SELECT * from users WHERE username = ?";
-   const id = 2;
    // const jsonData = pm.response.json().message
    // pm.visualizer.set(`
    // <body>
@@ -74,13 +73,13 @@ module.exports.changedProfile = (req, res) => {
                      return res.status(500).json(err);
                   }
 
-                  // res.send({
-                  //    username: req.body.username,
-                  //    email: req.body.email,
-                  //    password: req.body.password,
-                  //    name: req.body.name,
-                  // });
-                  res.status(200).json(`${req.body.username} has been edited`);
+                  res.send({
+                     username: req.body.username,
+                     email: req.body.email,
+                     password: req.body.password,
+                     name: req.body.name,
+                  });
+                  // res.status(200).json(`${req.body.username} has been edited`);
                }
             );
          }
@@ -88,6 +87,29 @@ module.exports.changedProfile = (req, res) => {
    } catch (err) {
       res.status(404).json("API Error", err);
    }
+};
+
+module.exports.getUser = (req, res) => {
+   const username = req.params.username;
+   const q = "SELECT * FROM users WHERE username = ?";
+
+   db.query(q, [username], (err, data) => {
+      console.log("inside q getuser");
+      if (err) {
+         return res.status(500).json(err);
+      }
+      if (!data.length) {
+         return res.status(409).json("User not found!");
+      } else {
+         console.log("data check...".data);
+         res.send(data[0]);
+      }
+   });
+   // .catch((err) => {
+   //    res.status(500).send({
+   //       message: "Error retrieving username=" + username,
+   //    });
+   // });
 };
 
 // module.exports = upload

@@ -68,6 +68,7 @@ module.exports = function (app) {
    //    );
    router.get("/api/testinguser", userController.testinguser);
    router.post("/api/getUserPic", userController.getUserPic);
+   router.get("/api/getUser/:username", userController.getUser);
    router.put("/api/updateProfile", userController.changedProfile);
    console.log("user route");
    app.use("/", router);
