@@ -70,6 +70,7 @@ module.exports = function (app) {
    router.post("/api/getUserPic", userController.getUserPic);
    router.get("/api/getUser/:username", userController.getUser);
    router.put("/api/updateProfile", userController.changedProfile);
+   router.put("/api/updateUserPassword", userController.changedPassword);
    console.log("user route");
    app.use("/", router);
 };

@@ -84,10 +84,11 @@
     font-size: large;
     text-align: center;
     background-color: rgb(234, 222, 222);
-    margin-right: 50px;
+    /* margin-right: 50px; */
     padding-top: 5px;
     padding-bottom: 5px;
     width: 25%;
+    margin-top: 5px;
 }
 
 
@@ -160,8 +161,9 @@
     background-color: rgb(234, 222, 222);
     padding-top: 5px;
     padding-bottom: 5px;
+    margin-left: 50px;
     /* margin-right: 100px; */
-    /* margin-top: 20px; */
+    margin-top: 5px;
 }
 
 .dialogInfo {
@@ -170,7 +172,7 @@
         margin-left: 30px;
         text-align: left;
         font-family:Verdana, Geneva, Tahoma, sans-serif;
-        /* border: 1px solid red; */
+        border: 1px solid red;
         /* padding: 1rem 1rem; */
         /* vertical-align: middle; */
         /* width: 70%; */
@@ -185,7 +187,7 @@
     /* float: left; */
     /* margin-right: 200px; */
     /* display: block; */
-    /* border: 1px solid rgb(0, 255, 4); */
+    border: 1px solid rgb(0, 255, 4);
     margin-left: 150px;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     /* max-width: 100%; */
@@ -201,4 +203,40 @@
     /* width: 70%; */
     /* line-height: 60px; */
     /* margin-top: 10px; */
+}
+
+.passwordButton{
+    border-radius: 10px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-size: large;
+    text-align: center;
+    width: 25%;
+    background-color: rgb(234, 222, 222);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    margin-left: 50px;
+    /* margin-right: 100px; */
+    margin-top: 5px;
+}
+
+.dialog3Info {
+    float: left;
+    margin-left: 10px;
+    text-align: left;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    /* border: 1px solid red; */
+    /* padding-top: 20px; */
+    margin-top: 10px;
+
+}
+
+.dialog3Input {
+    /* border: 1px solid rgb(0, 255, 4); */
+    /* margin-left: 150px; */
+    float: left;
+    margin-left: 20px;
+    /* padding-top: 20px; */
+    margin-top: 10px;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+
 }
