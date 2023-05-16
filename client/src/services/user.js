@@ -33,11 +33,10 @@ const getUserPic = (username) => {
    });
 };
 
-const editProfile = (email, password, name, username) => {
-   console.log("edit profile....", username, email, password, name);
+const editProfile = async (email, name, username) => {
+   console.log("edit profile....", username, email, name);
    return axios.put(API_URL + "updateProfile", {
       email,
-      password,
       name,
       username,
    });
@@ -48,11 +47,20 @@ const getUser = (username) => {
    return axios.get(API_URL + `getUser/${username}`);
 };
 
+const changeUserPassword = (password, username) => {
+   console.log("inside change password", password, username);
+   return axios.put(API_URL + "updateUserPassword", {
+      password,
+      username,
+   });
+};
+
 const userService = {
    upload,
    getUserPic,
    editProfile,
    getUser,
+   changeUserPassword,
 };
 
 export default userService;

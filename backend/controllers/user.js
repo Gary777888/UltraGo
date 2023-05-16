@@ -64,12 +64,13 @@ module.exports.changedProfile = (req, res) => {
                      return res.status(500).json(err);
                   }
 
-                  res.send({
-                     username: req.body.username,
-                     email: req.body.email,
+                  res.send(
+                     "EDITED!!!!"
+                     // username: req.body.username,
+                     // email: req.body.email,
                      // password: req.body.password,
-                     name: req.body.name,
-                  });
+                     // name: req.body.name,
+                  );
                   // res.status(200).json(`${req.body.username} has been edited`);
                }
             );

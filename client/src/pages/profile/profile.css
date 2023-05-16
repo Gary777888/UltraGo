@@ -36,7 +36,7 @@
     border-radius: 20px;
     /* border: yellow; */
     height: 300px;
-    max-width: 50%;
+    max-width: 60%;
     /* outline-color: blue; */
     background-color: rgb(211, 224, 230);
     text-align: center;
@@ -88,7 +88,7 @@
     padding-top: 5px;
     padding-bottom: 5px;
     width: 25%;
-    margin-top: 5px;
+    /* margin-top: 5px; */
 }
 
 
@@ -111,7 +111,7 @@
 .profileInfo{
     /* display: inline-block; */
     float: left;
-    margin-left: 30px;
+    margin-left: 60px;
     border: 1px solid red;
     padding: 1rem 1rem;
     /* vertical-align: middle; */
@@ -125,7 +125,8 @@
 .labelProfile{
     font-family: "Verdana";
     float: left;
-    margin-top: 25px;
+    margin-top: 26px;
+    /* font-size: larger; */
 }
 
 .profileInput{
@@ -150,6 +151,8 @@
 .inputProfile{
     width: 60%;
     margin-top: 24px;
+    /* font-size: larger; */
+    font-family: "Verdana";
 }
 
 .editButton{
@@ -163,16 +166,17 @@
     padding-bottom: 5px;
     margin-left: 50px;
     /* margin-right: 100px; */
-    margin-top: 5px;
+    /* margin-top: 5px; */
 }
 
 .dialogInfo {
         /* display: inline-block; */
         float: left;
+        /* margin-bottom: 200px; */
         margin-left: 30px;
         text-align: left;
         font-family:Verdana, Geneva, Tahoma, sans-serif;
-        border: 1px solid red;
+        /* border: 1px solid red; */
         /* padding: 1rem 1rem; */
         /* vertical-align: middle; */
         /* width: 70%; */
@@ -187,8 +191,8 @@
     /* float: left; */
     /* margin-right: 200px; */
     /* display: block; */
-    border: 1px solid rgb(0, 255, 4);
-    margin-left: 150px;
+    /* border: 1px solid rgb(0, 255, 4); */
+    margin-left: 120px;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     /* max-width: 100%; */
     /* float: left; */
@@ -216,7 +220,7 @@
     padding-bottom: 5px;
     margin-left: 50px;
     /* margin-right: 100px; */
-    margin-top: 5px;
+    /* margin-top: 5px; */
 }
 
 .dialog3Info {

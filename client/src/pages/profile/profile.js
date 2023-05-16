@@ -28,16 +28,18 @@ const Profile = () => {
 
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
+   const [confirmpassword, setConfirmPassword] = useState("");
    const [name, setName] = useState("");
    const [passwordcheck, setPasswordcheck] = useState(false);
    const [emailcheck, setEmailcheck] = useState(true);
 
    const [open3, setOpen3] = useState(false);
+   const [matched, setMatched] = useState(false);
+
+   const [message2, setMessage2] = useState("");
 
    const [emailEmpty, setEmailEmpty] = useState(true);
    const [passwordEmpty, setPasswordEmpty] = useState(true);
-
-   // const [currentUserDetails, setCurrentUserDetails] = useState("");
 
    const { username } = useParams();
 
@@ -49,14 +51,13 @@ const Profile = () => {
       //    // console.log("setttt");
       //    setCurrentUser(user);
       // }
-
       getUserProfile(username);
       getUserPic(username);
    }, [username]);
 
    console.log("username check...", username);
    console.log("current user check...", currentUser);
-   // console.log("fkfkfkfkf", typeof currentUser[0].name);
+
    const getUserPic = async (username) => {
       await userService
          .getUserPic(username)
@@ -69,12 +70,11 @@ const Profile = () => {
          });
    };
 
-   const getUserProfile = async (username) => {
-      await userService
+   const getUserProfile = (username) => {
+      userService
          .getUser(username)
          .then((res) => {
             setCurrentUser(res.data);
-            // setCurrentUserDetails(res.data);
             console.log("check getuser res...", res.data);
          })
          .catch((err) => {
@@ -82,7 +82,6 @@ const Profile = () => {
          });
    };
 
-   // console.log("CurrentUserDetails...", currentUserDetails);
    const saveFile = (e) => {
       if (!e.target.files[0]) {
          setImage("");
@@ -95,6 +94,7 @@ const Profile = () => {
 
    const handleOpen = () => {
       setOpen(true);
+      // alert("hoioioi");
    };
 
    const handleClose = () => {
@@ -106,21 +106,19 @@ const Profile = () => {
       }
    };
 
-   console.log("check data", data);
-   console.log("image checkkkk", image);
-   const changeFile = async (e) => {
+   const changeFile = (e) => {
       const formData = new FormData();
       formData.append("image", image);
       formData.append("fileName", fileName);
       formData.append("username", username);
       console.log("inside..form...", formData);
-
       if (image || fileName !== "") {
          axios
             .post("http://localhost:8000/api/upload", formData)
             .then((res) => {
                if (res.data.Status === "Success") {
                   console.log("Succeded");
+                  // toast.success(`Changed picture to ${fileName}`);
                   setSuccessfulChanged(true);
                   // localStorage.setItem(
                   //    currentUser.profilePic,
@@ -136,7 +134,8 @@ const Profile = () => {
                console.log(err);
             });
       } else {
-         alert("Empty");
+         toast.info("No changes");
+         setOpen(false);
       }
       // userService
       //    .upload(formData)
@@ -181,10 +180,6 @@ const Profile = () => {
       const check = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
       const ValidationEmail = check.test(e.target.value);
       console.log("curretn email check", currentUser.email);
-      // if (e.target.length === 0) {
-      //    setEmail(currentUser.email);
-      //    setEmailEmpty(true);
-      // } else {
       setEmailEmpty(false);
       if (ValidationEmail === false) {
          setEmailcheck(false);
@@ -194,8 +189,6 @@ const Profile = () => {
          setEmail(EMAIL);
          console.log("email check", EMAIL, email);
       }
-      // }
-      // e.target.value = currentUser.email;
    };
 
    const onChangePassword = (e) => {
@@ -203,22 +196,49 @@ const Profile = () => {
          /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,10}$/;
       const ValidationPassword = check.test(e.target.value);
       console.log("curretn password check", currentUser.password);
+      const PASSWORD = e.target.value;
+      setPassword(PASSWORD);
 
-      if (e.target.length === 0) {
-         setPasswordEmpty(true);
-         setPassword(currentUser.password);
+      if (PASSWORD !== confirmpassword) {
+         setMatched(false);
       } else {
-         setPasswordEmpty(false);
          if (ValidationPassword === false) {
             setPasswordcheck(false);
             console.log("error password..", password, e.target.value);
          } else {
             setPasswordcheck(true);
-            const PASSWORD = e.target.value;
-            setPassword(PASSWORD);
             console.log("password check", PASSWORD, password);
          }
       }
+   };
+
+   const onChangeConfirmPassword = (e) => {
+      const check =
+         /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{6,10}$/;
+      const ValidationPassword = check.test(e.target.value);
+      console.log("curretn password check", currentUser.password);
+      const PASSWORD = e.target.value;
+
+      if (PASSWORD !== password) {
+         setMatched(false);
+         console.log("password nototootot match", password, PASSWORD);
+      } else {
+         setMatched(true);
+         console.log("matchhchhchchc", password, PASSWORD);
+         if (ValidationPassword === false) {
+            setPasswordcheck(false);
+            console.log(
+               "error confirm password..",
+               confirmpassword,
+               e.target.value
+            );
+         } else {
+            setPasswordcheck(true);
+            setConfirmPassword(PASSWORD);
+         }
+      }
+
+      console.log("password check", PASSWORD, confirmpassword);
       // e.target.value = currentUser.password;
    };
 
@@ -226,73 +246,59 @@ const Profile = () => {
       const NAME = e.target.value;
       setName(NAME);
       console.log("name check", NAME, name);
+      // alert("chahahah");
    };
-   console.log("before changd function....", email.length);
-   async function changedProfile(e) {
+
+   const changedProfile = async (e) => {
       e.preventDefault();
-      console.log("check all...", password, email, name);
-      console.log("length check", email.length, password.length);
-      if (passwordcheck === false) {
-         setMessage(
-            "The password must be 6 - 10 characters and contains one alphabet, one capital letter, one number and one special character."
-         );
-         // alert(message);
-         toast.error(message);
-      } else if (emailcheck === false && email.length !== 0) {
+      // setMessage("");
+      console.log("check all...", email, name);
+      if (emailcheck === false && email.length !== 0) {
          console.log("emaillllengthhhhhhhhh...", email.length);
-         setMessage("The email is not in correct format");
+         // setMessage("The email is not in correct format");
          // alert(message);
-         toast.error(message);
+         toast.error("The email is not in correct format");
       } else {
-         // if (password.length === 0) {
-         //    setPassword(currentUser.password);
-         // }
-         // if (email.length === 0) {
-         //    setEmail(currentUser.email);
-         // }
          await userService
-            .editProfile(email, password, name, username)
+            .editProfile(email, name, username)
             .then((res) => {
+               // console.log("backend check", res.data);
+               // setMessage("User has been edited");
+               // alert(message);
+               toast.success(`${username} has been edited`);
                console.log(
                   "email and password check...",
                   currentUser.email,
                   currentUser.password,
-                  email.length,
-                  password.length
+                  email.length
                );
 
-               // setMessage(res.data);
-               setMessage("User has been edited");
-               // alert(message);
-               toast.success(message);
                setOpen2(false);
-               // setTimeout(function () {
-               //    window.location.reload();
-               // }, 3000);
+               setTimeout(function () {
+                  window.location.reload();
+               }, 3000);
             })
             .catch((error) => {
                console.log("error backend...", error);
                if (error.response.status === 404) {
-                  setMessage("API Error");
+                  // setMessage("API Error");
                   console.log("failll error 1", error.response.data);
-                  alert(message);
-                  // toast.error(message);
+                  // alert(message);
+                  toast.error("API Error");
                } else if (error.response.status === 409) {
-                  // setMessage(error.response.data);
-                  setMessage("ERROR 409");
+                  // setMessage("ERROR 409");
                   console.log("failll error 2", error.response.data);
-                  alert(message);
-                  // toast.error(message);
+                  // alert(message);
+                  toast.error("ERROR 409");
                } else {
-                  // setMessage(error.config.message);
-                  setMessage("OTHER ERRORS");
+                  // setMessage("OTHER ERRORS");
                   console.log("failll error 3", error);
                   // alert(message);
-                  toast.error(message);
+                  toast.error("OTHER ERRORS");
                }
             });
       }
-   }
+   };
 
    const handleOpen3 = () => {
       setOpen3(true);
@@ -304,6 +310,54 @@ const Profile = () => {
 
    const changedPassword = (e) => {
       e.preventDefault();
+      console.log("check password", password, confirmpassword);
+
+      if (matched === false) {
+         console.log("matchhhh false", matched);
+         // setMessage("Password does not match");
+         toast.error("Password does not match");
+      } else {
+         if (passwordcheck === false) {
+            // setMessage(
+            //    "The password must be 6 - 10 characters and contains one captial letter, one alphabet, one number and one special character."
+            // );
+            // alert(message);
+            toast.error(
+               "The password must be 6 - 10 characters and contains one captial letter, one alphabet, one number and one special character."
+            );
+         } else {
+            userService
+               .changeUserPassword(confirmpassword, username)
+               .then((res) => {
+                  console.log("inside userService changeuserpassword");
+                  // setMessage("Changed user password");
+                  // alert(message)
+                  toast.success("Changed user password");
+                  setOpen3(false);
+               })
+               .catch((error) => {
+                  console.log("error backend...", error);
+                  if (error.response.status === 404) {
+                     // setMessage("API Error");
+                     console.log("failll error 1", error.response.data);
+                     // alert(message);
+                     toast.error("API Error");
+                  } else if (error.response.status === 409) {
+                     // setMessage(error.response.data);
+                     // setMessage("ERROR 409");
+                     console.log("failll error 2", error.response.data);
+                     // alert(message);
+                     toast.error("ERROR 409");
+                  } else {
+                     // setMessage(error.config.message);
+                     // setMessage("OTHER ERRORS");
+                     console.log("failll error 3", error);
+                     // alert(message);
+                     toast.error("OTHER ERRORS");
+                  }
+               });
+         }
+      }
    };
 
    return (
@@ -443,32 +497,11 @@ const Profile = () => {
                            marginTop: "30px",
                         }}
                      >
-                        <div
-                           // style={{
-                           //    position: "relative",
-                           //    marginLeft: "10px",
-                           //    textAlign: "left",
-                           //    marginTop: "20px",
-                           // }}
-                           className="dialogInfo"
-                        >
-                           <strong
-                              style={{
-                                 marginBottom: "10px",
-                                 display: "inline-block",
-                              }}
-                           >
-                              Name:
-                           </strong>
+                        <div className="dialogInfo">
+                           <strong>Name:</strong>
                            <br />
-                           <strong
-                              style={{
-                                 marginBottom: "10px",
-                                 display: "inline-block",
-                              }}
-                           >
-                              Email:
-                           </strong>
+                           <br />
+                           <strong>Email:</strong>
                            <br />
                         </div>
                         <div className="dialogInput">
@@ -480,8 +513,9 @@ const Profile = () => {
                               // value={currentUser.name}
                               onChange={onChangeName}
                               style={{
-                                 marginBottom: "8px",
-                                 paddingRight: "60px",
+                                 fontFamily: "Verdana",
+                                 marginBottom: "19px",
+                                 paddingRight: "80px",
                               }}
                            ></input>
                            <br />
@@ -493,8 +527,9 @@ const Profile = () => {
                               name="email"
                               onChange={onChangeEmail}
                               style={{
+                                 fontFamily: "Verdana",
                                  marginBottom: "8px",
-                                 paddingRight: "60px",
+                                 paddingRight: "80px",
                               }}
                            ></input>
 
@@ -537,39 +572,31 @@ const Profile = () => {
                         }}
                      >
                         <div className="dialog3Info">
-                           <strong
-                              style={{
-                                 marginBottom: "10px",
-                                 display: "inline-block",
-                              }}
-                           >
-                              New Password:{" "}
-                           </strong>
+                           <strong>New Password: </strong>
                            <br />
                            <br />
-                           <strong
-                              style={{
-                                 marginBottom: "10px",
-                                 display: "inline-block",
-                              }}
-                           >
-                              Confirm Password:{" "}
-                           </strong>
+                           <br />
+                           <strong>Confirm Password: </strong>
                         </div>
                         <div className="dialog3Input">
                            <input
                               style={{
-                                 marginBottom: "8px",
+                                 // marginBottom: "17px",
                                  paddingRight: "60px",
                               }}
+                              name="password"
+                              onChange={onChangePassword}
                            ></input>
+                           <br />
                            <br />
                            <br />
                            <input
                               style={{
-                                 marginBottom: "8px",
+                                 // marginBottom: "8px",
                                  paddingRight: "60px",
                               }}
+                              name="confirmpassword"
+                              onChange={onChangeConfirmPassword}
                            ></input>
                         </div>
                      </div>
