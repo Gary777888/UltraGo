@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import userService from "../../services/user";
-import authService from "../../services/auth";
 import "./profile.css";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -12,8 +11,6 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
-import { type } from "@testing-library/user-event/dist/type";
-import { sync } from "fontawesome";
 
 const Profile = () => {
    window.scrollTo(0, 0);
@@ -24,7 +21,6 @@ const Profile = () => {
    const [open, setOpen] = useState(false);
    const [successfulChanged, setSuccessfulChanged] = useState(false);
    const [open2, setOpen2] = useState(false);
-   const [message, setMessage] = useState("");
 
    const [email, setEmail] = useState("");
    const [password, setPassword] = useState("");
@@ -36,21 +32,9 @@ const Profile = () => {
    const [open3, setOpen3] = useState(false);
    const [matched, setMatched] = useState(false);
 
-   const [message2, setMessage2] = useState("");
-
-   const [emailEmpty, setEmailEmpty] = useState(true);
-   const [passwordEmpty, setPasswordEmpty] = useState(true);
-
    const { username } = useParams();
 
-   // const valueName = currentUser[0].name;
-
    useEffect(() => {
-      // const user = authService.getCurrentUser();
-      // if (user) {
-      //    // console.log("setttt");
-      //    setCurrentUser(user);
-      // }
       getUserProfile(username);
       getUserPic(username);
    }, [username]);
@@ -94,14 +78,17 @@ const Profile = () => {
 
    const handleOpen = () => {
       setOpen(true);
-      // alert("hoioioi");
    };
 
    const handleClose = () => {
       if (successfulChanged === true) {
          setOpen(false);
+         setImage("");
+         setFileName("");
          window.location.reload();
       } else {
+         setImage("");
+         setFileName("");
          setOpen(false);
       }
    };
@@ -118,12 +105,7 @@ const Profile = () => {
             .then((res) => {
                if (res.data.Status === "Success") {
                   console.log("Succeded");
-                  // toast.success(`Changed picture to ${fileName}`);
                   setSuccessfulChanged(true);
-                  // localStorage.setItem(
-                  //    currentUser.profilePic,
-                  //    JSON.stringify(data)
-                  // );
                   setOpen(false);
                   window.location.reload();
                } else {
@@ -137,39 +119,12 @@ const Profile = () => {
          toast.info("No changes");
          setOpen(false);
       }
-      // userService
-      //    .upload(formData)
-      //    .then((res) => {
-      //       console.log("LOLOLOLOLLOL");
-      //       if (res.data.Status === "Success") {
-      //          console.log("Succeded");
-      //          setSuccessfulChanged(true);
-      //          setOpen(false);
-      //          window.location.reload();
-      //       } else {
-      //          console.log("Failed", res);
-      //       }
-      //    })
-      //    .catch((err) => {
-      //       console.log(err);
-      //    });
-
-      // try {
-      //    userService.upload(formData).then((res) => {
-      //       console.log(res);
-      //    });
-      //    console.log("success try");
-      // } catch (ex) {
-      //    console.log(ex);
-      //    console.log("faillll");
-      // }
    };
 
    const handleOpen2 = () => {
       setOpen2(true);
       setName(currentUser.name);
       setEmail(currentUser.email);
-      // setPassword(currentUser.password);
    };
 
    const handleClose2 = () => {
@@ -180,7 +135,6 @@ const Profile = () => {
       const check = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
       const ValidationEmail = check.test(e.target.value);
       console.log("curretn email check", currentUser.email);
-      setEmailEmpty(false);
       if (ValidationEmail === false) {
          setEmailcheck(false);
       } else {
@@ -239,61 +193,40 @@ const Profile = () => {
       }
 
       console.log("password check", PASSWORD, confirmpassword);
-      // e.target.value = currentUser.password;
    };
 
    const onChangeName = (e) => {
       const NAME = e.target.value;
       setName(NAME);
       console.log("name check", NAME, name);
-      // alert("chahahah");
    };
 
    const changedProfile = async (e) => {
       e.preventDefault();
-      // setMessage("");
       console.log("check all...", email, name);
       if (emailcheck === false && email.length !== 0) {
          console.log("emaillllengthhhhhhhhh...", email.length);
-         // setMessage("The email is not in correct format");
-         // alert(message);
          toast.error("The email is not in correct format");
       } else {
          await userService
             .editProfile(email, name, username)
             .then((res) => {
-               // console.log("backend check", res.data);
-               // setMessage("User has been edited");
-               // alert(message);
                toast.success(`${username} has been edited`);
-               console.log(
-                  "email and password check...",
-                  currentUser.email,
-                  currentUser.password,
-                  email.length
-               );
-
                setOpen2(false);
                setTimeout(function () {
                   window.location.reload();
-               }, 3000);
+               }, 2000);
             })
             .catch((error) => {
                console.log("error backend...", error);
                if (error.response.status === 404) {
-                  // setMessage("API Error");
                   console.log("failll error 1", error.response.data);
-                  // alert(message);
                   toast.error("API Error");
                } else if (error.response.status === 409) {
-                  // setMessage("ERROR 409");
                   console.log("failll error 2", error.response.data);
-                  // alert(message);
                   toast.error("ERROR 409");
                } else {
-                  // setMessage("OTHER ERRORS");
                   console.log("failll error 3", error);
-                  // alert(message);
                   toast.error("OTHER ERRORS");
                }
             });
@@ -314,14 +247,9 @@ const Profile = () => {
 
       if (matched === false) {
          console.log("matchhhh false", matched);
-         // setMessage("Password does not match");
          toast.error("Password does not match");
       } else {
          if (passwordcheck === false) {
-            // setMessage(
-            //    "The password must be 6 - 10 characters and contains one captial letter, one alphabet, one number and one special character."
-            // );
-            // alert(message);
             toast.error(
                "The password must be 6 - 10 characters and contains one captial letter, one alphabet, one number and one special character."
             );
@@ -330,29 +258,22 @@ const Profile = () => {
                .changeUserPassword(confirmpassword, username)
                .then((res) => {
                   console.log("inside userService changeuserpassword");
-                  // setMessage("Changed user password");
-                  // alert(message)
-                  toast.success("Changed user password");
+                  toast.success(`Changed user:${username} password`);
                   setOpen3(false);
+                  setTimeout(function () {
+                     window.location.reload();
+                  }, 2000);
                })
                .catch((error) => {
                   console.log("error backend...", error);
                   if (error.response.status === 404) {
-                     // setMessage("API Error");
                      console.log("failll error 1", error.response.data);
-                     // alert(message);
                      toast.error("API Error");
                   } else if (error.response.status === 409) {
-                     // setMessage(error.response.data);
-                     // setMessage("ERROR 409");
                      console.log("failll error 2", error.response.data);
-                     // alert(message);
                      toast.error("ERROR 409");
                   } else {
-                     // setMessage(error.config.message);
-                     // setMessage("OTHER ERRORS");
                      console.log("failll error 3", error);
-                     // alert(message);
                      toast.error("OTHER ERRORS");
                   }
                });
@@ -428,6 +349,8 @@ const Profile = () => {
                ></input>
                <br />
                <br />
+            </div>
+            <div className="bottomButtonDiv">
                <button className="changeImageButton" onClick={handleOpen}>
                   Change Picture
                </button>
@@ -457,12 +380,6 @@ const Profile = () => {
                            className="chooseFileInput"
                            onChange={saveFile}
                         />
-                        {/* <button
-                           className="changePicButton"
-                           onClick={changeFile}
-                        >
-                           Change Profile Picture
-                        </button> */}
                      </div>
                   </DialogContent>
 
@@ -510,7 +427,6 @@ const Profile = () => {
                               placeholder={"Name"}
                               defaultValue={currentUser.name}
                               name="name"
-                              // value={currentUser.name}
                               onChange={onChangeName}
                               style={{
                                  fontFamily: "Verdana",
@@ -539,9 +455,6 @@ const Profile = () => {
                   </DialogContent>
                   <DialogActions>
                      <Button
-                        // disable={
-                        //    emailEmpty ? (true) : (onClick={changedProfile})
-                        // }
                         onClick={changedProfile}
                         style={{
                            cursor: "pointer",
@@ -581,9 +494,9 @@ const Profile = () => {
                         <div className="dialog3Input">
                            <input
                               style={{
-                                 // marginBottom: "17px",
                                  paddingRight: "60px",
                               }}
+                              type="password"
                               name="password"
                               onChange={onChangePassword}
                            ></input>
@@ -592,9 +505,9 @@ const Profile = () => {
                            <br />
                            <input
                               style={{
-                                 // marginBottom: "8px",
                                  paddingRight: "60px",
                               }}
+                              type="password"
                               name="confirmpassword"
                               onChange={onChangeConfirmPassword}
                            ></input>
@@ -603,9 +516,6 @@ const Profile = () => {
                   </DialogContent>
                   <DialogActions>
                      <Button
-                        // disable={
-                        //    emailEmpty ? (true) : (onClick={changedProfile})
-                        // }
                         onClick={changedPassword}
                         style={{
                            cursor: "pointer",
