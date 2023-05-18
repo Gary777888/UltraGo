@@ -27,9 +27,13 @@ module.exports.getUserPic = (req, res) => {
       }
       for (let i = 0; i < data.length; i++) {
          console.log("data check", data[i]);
-         res.send({
-            profilePic: data[i].profilePic,
-         });
+         if (data[i].profilePic === null) {
+            res.send({ profilePic: "image_1684379802158.png" });
+         } else {
+            res.send({
+               profilePic: data[i].profilePic,
+            });
+         }
       }
    });
 };

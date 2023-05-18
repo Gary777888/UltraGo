@@ -6,6 +6,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import Button from "@mui/material/Button";
+import defaultUser from "../../images/defaultUser.png";
 
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
@@ -17,6 +18,7 @@ const Profile = () => {
    const [image, setImage] = useState("");
    const [fileName, setFileName] = useState("");
    const [data, setData] = useState([]);
+   const [dataImage, setDataImage] = useState(false);
    const [currentUser, setCurrentUser] = useState("");
    const [open, setOpen] = useState(false);
    const [successfulChanged, setSuccessfulChanged] = useState(false);
@@ -42,17 +44,20 @@ const Profile = () => {
    console.log("username check...", username);
    console.log("current user check...", currentUser);
 
-   const getUserPic = async (username) => {
-      await userService
+   const getUserPic = (username) => {
+      userService
          .getUserPic(username)
          .then((res) => {
             console.log("ressss check....", res);
             setData(res.data);
+            setDataImage(true);
          })
          .catch((err) => {
             console.log(err);
          });
    };
+
+   console.log("check dataaaaaa", data);
 
    const getUserProfile = (username) => {
       userService
@@ -298,11 +303,15 @@ const Profile = () => {
          <h2 className="pageTitle">{username} Profile</h2>
          <br />
          <div className="imageContainer">
-            <img
-               src={"http://localhost:8000/images/" + data.profilePic}
-               alt="ProfilePic"
-               className="profilePic"
-            />
+            {dataImage ? (
+               <img
+                  src={"http://localhost:8000/images/" + data.profilePic}
+                  alt="ProfilePic"
+                  className="profilePic"
+               />
+            ) : (
+               <img src={defaultUser} alt="ProfilePic" className="profilePic" />
+            )}
          </div>
          <br />
          <div className="profileContainer">
@@ -366,6 +375,7 @@ const Profile = () => {
                            marginBottom: "10px",
                         }}
                      >
+                        {}
                         <img
                            src={
                               "http://localhost:8000/images/" + data.profilePic

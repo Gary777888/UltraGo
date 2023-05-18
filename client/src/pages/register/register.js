@@ -14,6 +14,8 @@ const Register = () => {
    const [passwordcheck, setPasswordcheck] = useState(false);
    const [emailcheck, setEmailcheck] = useState(false);
 
+   const [emailEmpty, setEmailEmpty] = useState(true);
+
    const onChangeUsername = (e) => {
       const USERNAME = e.target.value;
       setUsername(USERNAME);
@@ -21,15 +23,39 @@ const Register = () => {
    };
 
    const onChangeEmail = (e) => {
+      // const check = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
+      // const ValidationEmail = check.test(e.target.value);
+      // if (ValidationEmail === false) {
+      //    setEmailcheck(false);
+      // } else {
+      //    setEmailcheck(true);
+      //    const EMAIL = e.target.value;
+      //    setEmail(EMAIL);
+      //    console.log("email check", EMAIL, email);
+      // }
+      const EMAIL = e.target.value;
+      setEmail(EMAIL);
+      console.log("check email....", EMAIL, email);
+   };
+
+   const onBlurEmail = (e) => {
       const check = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i;
       const ValidationEmail = check.test(e.target.value);
-      if (ValidationEmail === false) {
-         setEmailcheck(false);
+
+      const EMAILEMAIL = e.target.value;
+
+      if (EMAILEMAIL.length) {
+         setEmailEmpty(false);
+         if (ValidationEmail === false) {
+            setEmailcheck(false);
+         } else {
+            setEmailcheck(true);
+            const EMAIL = e.target.value;
+            setEmail(EMAIL);
+            console.log("email check", EMAIL, email);
+         }
       } else {
-         setEmailcheck(true);
-         const EMAIL = e.target.value;
-         setEmail(EMAIL);
-         console.log("email check", EMAIL, email);
+         setEmailEmpty(true);
       }
    };
 
@@ -57,43 +83,79 @@ const Register = () => {
    const handleRegister = (e) => {
       console.log("register working");
       e.preventDefault();
-      if (passwordcheck === false) {
-         setSuccessful(false);
-         setMessage(
-            "The password must be 6 - 10 characters and contains one alphabet, one capital letter, one number and one special character."
-         );
-      } else if (emailcheck === false) {
-         setSuccessful(false);
-         setMessage("The email is not in correct format");
-      } else {
-         authService
-            .register(username, email, password, name)
-            .then((res) => {
-               console.log("herehe", res);
-               setSuccessful(true);
-               setMessage(res.data);
-               setTimeout(function () {
-                  window.location.reload();
-               }, 2000);
-            })
-            .catch((error) => {
-               console.log("error backend...", error);
-               if (error.response.status === 404) {
-                  setSuccessful(false);
-                  setMessage("API Error");
-                  console.log("failll error 1", error.response.data);
-               } else if (error.response.status === 409) {
-                  setSuccessful(false);
-                  setMessage(error.response.data);
-                  console.log("failll error 2", error.response.data);
-               } else {
-                  setSuccessful(false);
-                  setMessage(error.config.message);
-                  console.log("failll error 3", error);
-               }
-            });
-      }
 
+      if (emailEmpty === false) {
+         if (passwordcheck === false) {
+            setSuccessful(false);
+            setMessage(
+               "The password must be 6 - 10 characters and contains one alphabet, one capital letter, one number and one special character."
+            );
+         } else if (emailcheck === false) {
+            setSuccessful(false);
+            setMessage("The email is not in correct format");
+         } else {
+            authService
+               .register(username, email, password, name)
+               .then((res) => {
+                  console.log("herehe", res);
+                  setSuccessful(true);
+                  setMessage(res.data);
+                  setTimeout(function () {
+                     window.location.reload();
+                  }, 2000);
+               })
+               .catch((error) => {
+                  console.log("error backend...", error);
+                  if (error.response.status === 404) {
+                     setSuccessful(false);
+                     setMessage("API Error");
+                     console.log("failll error 1", error.response.data);
+                  } else if (error.response.status === 409) {
+                     setSuccessful(false);
+                     setMessage(error.response.data);
+                     console.log("failll error 2", error.response.data);
+                  } else {
+                     setSuccessful(false);
+                     setMessage(error.config.message);
+                     console.log("failll error 3", error);
+                  }
+               });
+         }
+      } else {
+         if (passwordcheck === false) {
+            setSuccessful(false);
+            setMessage(
+               "The password must be 6 - 10 characters and contains one alphabet, one capital letter, one number and one special character."
+            );
+         } else {
+            authService
+               .register(username, email, password, name)
+               .then((res) => {
+                  console.log("herehe", res);
+                  setSuccessful(true);
+                  setMessage(res.data);
+                  setTimeout(function () {
+                     window.location.reload();
+                  }, 2000);
+               })
+               .catch((error) => {
+                  console.log("error backend...", error);
+                  if (error.response.status === 404) {
+                     setSuccessful(false);
+                     setMessage("API Error");
+                     console.log("failll error 1", error.response.data);
+                  } else if (error.response.status === 409) {
+                     setSuccessful(false);
+                     setMessage(error.response.data);
+                     console.log("failll error 2", error.response.data);
+                  } else {
+                     setSuccessful(false);
+                     setMessage(error.config.message);
+                     console.log("failll error 3", error);
+                  }
+               });
+         }
+      }
       // authService.register(username, email, password, name).then(
       //    (res) => {
       //       setSuccessful(true);
@@ -137,8 +199,9 @@ const Register = () => {
                      type="email"
                      placeholder="Email"
                      name="email"
-                     required
+                     // required
                      onChange={onChangeEmail}
+                     onBlur={onBlurEmail}
                   />
                   <input
                      type="password"
