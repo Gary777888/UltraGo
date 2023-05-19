@@ -44,6 +44,38 @@ function NavBar() {
                   <i className="fas fa-code"></i>
                </NavLink>
 
+               {/* <NavLink exact to="/" className="nav-shop">
+                  Jersey & Pants<i className="fas fa-code"></i>
+               </NavLink>
+
+               <NavLink exact to="/" className="nav-shop">
+                  Shoes
+                  <i className="fas fa-code"></i>
+               </NavLink>
+
+               <NavLink exact to="/" className="nav-shop">
+                  Accessories
+                  <i className="fas fa-code"></i>
+               </NavLink> */}
+
+               <ul className="nav-shop-ul">
+                  <li className="nav-shop-item">
+                     <NavLink exact to="/" className="nav-links">
+                        Jersey & Pants<i className="fas fa-code"></i>
+                     </NavLink>
+                  </li>
+                  <li className="nav-shop-item">
+                     <NavLink exact to="/" className="nav-links">
+                        Jersey & Pants<i className="fas fa-code"></i>
+                     </NavLink>
+                  </li>
+                  <li className="nav-shop-item">
+                     <NavLink exact to="/" className="nav-links">
+                        Jersey & Pants<i className="fas fa-code"></i>
+                     </NavLink>
+                  </li>
+               </ul>
+
                <ul className={click ? "nav-menu active" : "nav-menu"}>
                   <li className="nav-item">
                      <NavLink

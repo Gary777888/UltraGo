@@ -1,8 +1,17 @@
 .navbar {
-    background-color: #1f5156;
+    /* background-color: #1f5156;
     height: 80px;
     display: flex;
     justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    position: sticky;
+    top: 0;
+    z-index: 20; */
+    background-color: darkviolet;
+    height: 80px;
+    display: flex;
+    justify-content: left;
     align-items: center;
     font-size: 1.2rem;
     position: sticky;
@@ -12,11 +21,12 @@
   
   .nav-container {
     display: flex;
-    justify-content: center;
+    /* justify-content: center; */
     align-items: center;
-    width: 100%;
+    /* width: 100%; */
     height: 80px;
     max-width: 1500px;
+    background-color:#ffdd40
   }
   
   .nav-logo {
@@ -26,12 +36,55 @@
     cursor: pointer;
     text-decoration: none;
     font-size: 2rem;
-    flex-grow: 1;
+    /* flex-grow: 1; */
+    background-color: tomato;
+  }
+
+  .nav-shop-ul {
+    /* margin-right: 200px; */
+    /* float: left; */
+    background-color: aquamarine;
+    margin-left: 20rem;
+    /* height: 80px; */
+    /* justify-content: center; */
+    /* flex-direction: column; */
+    /* display: inline; */
+    /* display: flex;
+    flex-direction: column;
+    width: 100%;
+    border-top: 1pxsolid #fff;
+    position: absolute;
+    top: 80px;
+    left: -110%;
+    opacity: 1;
+    transition: all 0.5s ease; */
+  }
+
+  .nav-shop-item {
+    display: inline-flex;
+    /* margin-left: 10px; */
+    background-color:blue 
+    /* margin-right: 200px; */
+  }
+
+  .nav-shop{
+    color: #f5b921;
+    /* align-items: center; */
+    /* background-color:green; */
+    /* margin-left: 15px; */
+    cursor: pointer;
+    text-decoration: none;
+    
+    /* flex-grow: 2.5; */
+    margin-right: 100px;
+    font-size: 1.4rem;
+    /* margin-bottom: 10px; */
+    /* margin: auto; */
   }
   
   .nav-menu {
     display: flex;
-    position: absolute;
+    /* position: absolute; */
     right: 5px;
     list-style: none;
     text-align: center;
@@ -40,8 +93,11 @@
   
   .nav-links {
     color: #fff;
+    background-color:chartreuse;
     text-decoration: none;
     padding: 0.5rem 1rem;
+    line-height: 50px;
+    /* padding-right: 1rem; */
     height: 100%;
     border-bottom: 3px solid transparent;
   }
@@ -49,6 +105,11 @@
   .nav-item-cart{
     line-height: 50px;
     margin-right: 1rem;
+  }
+
+  .nav-links-cart {
+    /* line-height:  50px; */
+    /* display: flex; */
   }
 
   .nav-item-cart .active {
