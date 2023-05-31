@@ -48,6 +48,8 @@ module.exports.register = (req, res) => {
 module.exports.send = (req, res) => {
    console.log("before");
    res.send("helllllllllllll\nnnoononononono");
+   // console.log("cookies....", req.cookies);
+   // res.json(req.cookies);
    console.log("working here");
 };
 
@@ -110,15 +112,22 @@ module.exports.logout = (req, res) => {
 };
 
 module.exports.getCookie = (req, res) => {
-   console.log("getcookie function");
-   let cookies = {};
+   console.log("getcookie function", req.cookies);
+   // let cookies = {};
 
-   const cookiesArray = req.headers.Cookie.split(";");
+   // const cookiesArray = req.headers.Cookie.split(";");
 
-   cookiesArray.forEach((cookie) => {
-      const [key, value] = cookie.trim().split("=");
-      cookies[key] = value;
-   });
-
-   res.json(cookies);
+   // cookiesArray.forEach((cookie) => {
+   //    const [key, value] = cookie.trim().split("=");
+   //    cookies[key] = value;
+   // });
+   // res.json(cookies);
+   console.log("check cooki.....", req.cookies);
+   if (!req.cookies.accessToken) {
+      console.log("null...");
+      return res.status(409).json("User not found");
+   } else {
+      console.log("not nulll.....");
+      res.json(req.cookies);
+   }
 };

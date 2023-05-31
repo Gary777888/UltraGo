@@ -2,12 +2,26 @@ const express = require("express");
 const cors = require("cors");
 const cookieParser = require("cookie-parser");
 
+const authController = require("./controllers/auth");
+
 const app = express();
+app.use(cookieParser());
 const corsOptions = {
+   credentials: true,
    origin: "http://localhost:8001",
+   optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
-app.use(cookieParser());
+
+// app.use(
+//    cors({
+//      credentials: true,
+//      origin: process.env.FRONTEND_URL ?? "http://localhost:8000",
+//      optionsSuccessStatus: 200,
+//    })
+//  );
+
+// app.get("/api/outside", authController.send);
 
 const authRouters = require("./routes/auth.route");
 // const userRouters = require("./routes/users");

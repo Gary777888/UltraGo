@@ -35,6 +35,7 @@ const Profile = () => {
    const [matched, setMatched] = useState(false);
 
    const { username } = useParams();
+   // const navigate = useNavigate();
 
    useEffect(() => {
       getUserProfile(username);
@@ -67,7 +68,13 @@ const Profile = () => {
             console.log("check getuser res...", res.data);
          })
          .catch((err) => {
-            console.log("errroroorr", err);
+            console.log("errrororr...", err);
+            // if (err.response.status === 410) {
+            //    console.log("failll error 410", err.response.data);
+            //    navigate("/");
+            // } else {
+            //    console.log("failll error...", err);
+            // }
          });
    };
 

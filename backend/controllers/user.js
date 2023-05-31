@@ -1,5 +1,6 @@
 const db = require("../config/connect.js");
 const bcrypt = require("bcryptjs");
+const { getCookie } = require("./auth.js");
 
 console.log("user controller");
 
@@ -126,13 +127,15 @@ module.exports.getUser = (req, res) => {
 
    db.query(q, [username], (err, data) => {
       console.log("inside q getuser");
+      // res.send(data[0]);
+
       if (err) {
          return res.status(500).json(err);
       }
       if (!data.length) {
          return res.status(409).json("User not found!");
       } else {
-         console.log("data check...".data);
+         // console.log("data check...".data);
          res.send(data[0]);
       }
    });

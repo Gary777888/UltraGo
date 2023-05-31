@@ -1,7 +1,10 @@
 const router = require("express").Router();
+const cookieParser = require("cookie-parser");
 const authController = require("../controllers/auth");
 
 module.exports = function (app) {
+   app.use(cookieParser());
+
    app.use(function (req, res, next) {
       res.header(
          "Access-Control-Allow-Headers",
@@ -9,10 +12,11 @@ module.exports = function (app) {
       );
       next();
    });
+
    router.post("/api/register", authController.register);
    router.post("/api/login", authController.login);
    router.post("/api/logout", authController.logout);
-   router.post("api/getcookie", authController.getCookie);
+   router.get("/api/getcookie", authController.getCookie);
    // router.post("/api/register", (req, res) => {
    //    controller.register;
    // });
