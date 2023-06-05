@@ -61,11 +61,12 @@ const Profile = () => {
    console.log("check dataaaaaa", data);
 
    const getUserProfile = (username) => {
+      console.log("checkkkkkkkkkuser namemememe", username);
       userService
          .getUser(username)
          .then((res) => {
-            setCurrentUser(res.data);
             console.log("check getuser res...", res.data);
+            setCurrentUser(res.data);
          })
          .catch((err) => {
             console.log("errrororr...", err);

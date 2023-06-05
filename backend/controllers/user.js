@@ -125,6 +125,7 @@ module.exports.getUser = (req, res) => {
    const username = req.params.username;
    const q = "SELECT * FROM users WHERE username = ?";
 
+   console.log("before getuser query....");
    db.query(q, [username], (err, data) => {
       console.log("inside q getuser");
       // res.send(data[0]);

@@ -1,32 +1,37 @@
 .navbar {
-    /* background-color: #1f5156;
-    height: 80px;
+     background-color: #1f5156;
+    /* height: 80px;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 1.2rem;
     position: sticky;
     top: 0;
-    z-index: 20; */
-    background-color: darkviolet;
+    z-index: 20;  */
+    /* background-color: rgb(139, 134, 141); */
     height: 80px;
     display: flex;
-    justify-content: left;
+    /* width: 100%; */
+    /* justify-content: left; */
     align-items: center;
     font-size: 1.2rem;
-    position: sticky;
+    /* position: sticky; */
     top: 0;
     z-index: 20;
+    /* border:#101010 2px solid; */
   }
   
   .nav-container {
     display: flex;
-    /* justify-content: center; */
+    /* margin-left: 200px; */
+    /* justify-content: right; */
     align-items: center;
-    /* width: 100%; */
+    width: 100%;
     height: 80px;
-    max-width: 1500px;
-    background-color:#ffdd40
+    /* max-width: 1500px; */
+    /* background-color:#ffdd40 */
+    border:#101010 2px solid;
+
   }
   
   .nav-logo {
@@ -36,19 +41,32 @@
     cursor: pointer;
     text-decoration: none;
     font-size: 2rem;
+    /* border: #101010 solid 2px; */
+    width: 110px;
+    /* display: flex; */
     /* flex-grow: 1; */
-    background-color: tomato;
+    /* margin-right: 237px; */
+    /* background-color: tomato; */
   }
 
   .nav-shop-ul {
-    /* margin-right: 200px; */
+    /* margin-left: 100px; */
+    /* margin-right: 1000px; */
     /* float: left; */
-    background-color: aquamarine;
-    margin-left: 20rem;
+    /* background-color: aquamarine; */
+    /* width: 100%; */
+    margin-left: 20%;
+    margin-right: 20px;
+    height: 80px;
+    width: 50%;
+    display:flex;
+    justify-content: center;
+    /* text-align: left; */
     /* height: 80px; */
     /* justify-content: center; */
     /* flex-direction: column; */
-    /* display: inline; */
+    /* display: flex; */
+    border:#fc0606 solid 2px;
     /* display: flex;
     flex-direction: column;
     width: 100%;
@@ -61,9 +79,16 @@
   }
 
   .nav-shop-item {
-    display: inline-flex;
+    display: flex;
+    /* border: red solid 2px; */
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+    /* margin: auto; */
+    /* justify-content: right; */
     /* margin-left: 10px; */
-    background-color:blue 
+    /* background-color:blue  */
     /* margin-right: 200px; */
   }
 
@@ -85,22 +110,53 @@
   .nav-menu {
     display: flex;
     /* position: absolute; */
-    right: 5px;
+    /* right: 5px; */
     list-style: none;
     text-align: center;
+    /* justify-content: right; */
+    float: right;
     /* margin-right: 2rem; */
   }
   
+.right-links {
+  /* float: right; */
+  justify-content: right;
+  display: flex;
+  /* justify-content: center; */
+  /* margin-right: 2px; */
+  height: 80px;
+  /* margin-left: 14px; */
+  border:#200cf6 solid 2px;
+  width: 30%;
+}
+
   .nav-links {
     color: #fff;
     background-color:chartreuse;
     text-decoration: none;
-    padding: 0.5rem 1rem;
+    /* padding: 0.5rem 1rem; */
     line-height: 50px;
     /* padding-right: 1rem; */
     height: 100%;
     border-bottom: 3px solid transparent;
+    float: right;
+
   }
+
+.nav-links-center {
+    color: #fff;
+    /* background-color:chartreuse; */
+    text-decoration: none;
+    /* padding: 0.5rem 1rem; */
+    /* line-height: 50px; */
+    /* display: flex; */
+    /* justify-content: left; */
+    /* padding-right: 1rem; */
+    /* height: 100%; */
+    border-bottom: 3px solid transparent;
+    /* float: right; */
+}
+
 
   .nav-item-cart{
     line-height: 50px;
@@ -136,6 +192,8 @@
   .nav-item {
     line-height: 40px;
     margin-right: 1rem;
+    border:#101010 2px solid;
+    /* float: right; */
   }
   
   .nav-item:after {

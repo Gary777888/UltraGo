@@ -57,110 +57,111 @@ function NavBar() {
                   Accessories
                   <i className="fas fa-code"></i>
                </NavLink> */}
-
                <ul className="nav-shop-ul">
                   <li className="nav-shop-item">
-                     <NavLink exact to="/" className="nav-links">
+                     <NavLink exact to="/" className="nav-links-center">
                         Jersey & Pants<i className="fas fa-code"></i>
                      </NavLink>
                   </li>
                   <li className="nav-shop-item">
-                     <NavLink exact to="/" className="nav-links">
-                        Jersey & Pants<i className="fas fa-code"></i>
+                     <NavLink exact to="/" className="nav-links-center">
+                        Football Boots<i className="fas fa-code"></i>
                      </NavLink>
                   </li>
                   <li className="nav-shop-item">
-                     <NavLink exact to="/" className="nav-links">
-                        Jersey & Pants<i className="fas fa-code"></i>
+                     <NavLink exact to="/" className="nav-links-center">
+                        Accessories<i className="fas fa-code"></i>
                      </NavLink>
                   </li>
                </ul>
+               <div className="right-links">
+                  <ul className={click ? "nav-menu active" : "nav-menu"}>
+                     <li className="nav-item">
+                        <NavLink
+                           exact
+                           to={"/aboutUs"}
+                           activeClassName="active"
+                           className="nav-links"
+                           onClick={handleClick}
+                        >
+                           AboutUs
+                        </NavLink>
+                     </li>
+                     {currentUser ? (
+                        <>
+                           <li className="nav-item-cart">
+                              <NavLink
+                                 exact
+                                 to={"/cart"}
+                                 activeClassName="active"
+                                 className="nav-links"
+                                 onClick={handleClick}
+                              >
+                                 <ShoppingCartIcon />
+                              </NavLink>
+                           </li>
+                           <li className="nav-item">
+                              <NavLink
+                                 exact
+                                 to={`/profile/${currentUser.username}`}
+                                 activeClassName="active"
+                                 className="nav-links"
+                                 onClick={handleClick}
+                              >
+                                 {currentUser.username}
+                              </NavLink>
+                           </li>
+                           <li className="nav-item">
+                              <a
+                                 href="/"
+                                 activeClassName="active"
+                                 className="nav-links"
+                                 onClick={logout}
+                              >
+                                 Logout
+                              </a>
+                           </li>
+                        </>
+                     ) : (
+                        <>
+                           <li className="nav-item-cart">
+                              <NavLink
+                                 exact
+                                 to={"/login"}
+                                 activeClassName="active"
+                                 className="nav-links"
+                                 onClick={handleClick}
+                              >
+                                 <ShoppingCartIcon />
+                              </NavLink>
+                           </li>
+                           <li className="nav-item">
+                              <NavLink
+                                 exact
+                                 to={"/register"}
+                                 activeClassName="active"
+                                 className="nav-links"
+                                 onClick={handleClick}
+                              >
+                                 Sign Up
+                              </NavLink>
+                           </li>
+                           <li className="nav-item">
+                              <NavLink
+                                 exact
+                                 to={"/login"}
+                                 activeClassName="active"
+                                 className="nav-links"
+                                 onClick={handleClick}
+                              >
+                                 Login
+                              </NavLink>
+                           </li>
+                        </>
+                     )}
+                  </ul>
+               </div>
 
-               <ul className={click ? "nav-menu active" : "nav-menu"}>
-                  <li className="nav-item">
-                     <NavLink
-                        exact
-                        to={"/aboutUs"}
-                        activeClassName="active"
-                        className="nav-links"
-                        onClick={handleClick}
-                     >
-                        AboutUs
-                     </NavLink>
-                  </li>
-                  {currentUser ? (
-                     <>
-                        <li className="nav-item-cart">
-                           <NavLink
-                              exact
-                              to={"/cart"}
-                              activeClassName="active"
-                              className="nav-links"
-                              onClick={handleClick}
-                           >
-                              <ShoppingCartIcon />
-                           </NavLink>
-                        </li>
-                        <li className="nav-item">
-                           <NavLink
-                              exact
-                              to={`/profile/${currentUser.username}`}
-                              activeClassName="active"
-                              className="nav-links"
-                              onClick={handleClick}
-                           >
-                              {currentUser.username}
-                           </NavLink>
-                        </li>
-                        <li className="nav-item">
-                           <a
-                              href="/"
-                              activeClassName="active"
-                              className="nav-links"
-                              onClick={logout}
-                           >
-                              Logout
-                           </a>
-                        </li>
-                     </>
-                  ) : (
-                     <>
-                        <li className="nav-item-cart">
-                           <NavLink
-                              exact
-                              to={"/login"}
-                              activeClassName="active"
-                              className="nav-links"
-                              onClick={handleClick}
-                           >
-                              <ShoppingCartIcon />
-                           </NavLink>
-                        </li>
-                        <li className="nav-item">
-                           <NavLink
-                              exact
-                              to={"/register"}
-                              activeClassName="active"
-                              className="nav-links"
-                              onClick={handleClick}
-                           >
-                              Sign Up
-                           </NavLink>
-                        </li>
-                        <li className="nav-item">
-                           <NavLink
-                              exact
-                              to={"/login"}
-                              activeClassName="active"
-                              className="nav-links"
-                              onClick={handleClick}
-                           >
-                              Login
-                           </NavLink>
-                        </li>
-                     </>
-                  )}
-               </ul>
                <div className="nav-icon" onClick={handleClick}>
                   <i className={click ? "fas fa-times" : "fas fa-bars"}></i>
                </div>
