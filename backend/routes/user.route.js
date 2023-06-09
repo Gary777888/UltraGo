@@ -67,8 +67,9 @@ module.exports = function (app) {
    //       express.static(path.resolve(__dirname, "./uploads"))
    //    );
    router.get("/api/testinguser", userController.testinguser);
-   router.post("/api/getUserPic", userController.getUserPic);
-   router.get("/api/getUser/:username", userController.getUser);
+   router.post("/api/getUserPic/:username", userController.getUserPic);
+   // router.get("/api/getUser/:username", userController.getUser);
+   router.post("/api/getUser/:username", userController.getUser);
    router.put("/api/updateProfile", userController.changedProfile);
    router.put("/api/updateUserPassword", userController.changedPassword);
    console.log("user route");

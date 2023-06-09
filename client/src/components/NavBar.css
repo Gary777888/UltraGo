@@ -30,7 +30,7 @@
     height: 80px;
     /* max-width: 1500px; */
     /* background-color:#ffdd40 */
-    border:#101010 2px solid;
+    /* border:#101010 2px solid; */
 
   }
   
@@ -66,7 +66,7 @@
     /* justify-content: center; */
     /* flex-direction: column; */
     /* display: flex; */
-    border:#fc0606 solid 2px;
+    /* border:#fc0606 solid 2px; */
     /* display: flex;
     flex-direction: column;
     width: 100%;
@@ -126,13 +126,13 @@
   /* margin-right: 2px; */
   height: 80px;
   /* margin-left: 14px; */
-  border:#200cf6 solid 2px;
+  /* border:#200cf6 solid 2px; */
   width: 30%;
 }
 
   .nav-links {
     color: #fff;
-    background-color:chartreuse;
+    /* background-color:chartreuse; */
     text-decoration: none;
     /* padding: 0.5rem 1rem; */
     line-height: 50px;
@@ -155,17 +155,29 @@
     /* height: 100%; */
     border-bottom: 3px solid transparent;
     /* float: right; */
+    /* line-height: 40px; */
+    /* margin-right: 1rem; */
+    /* border:#f5b921 solid 3px; */
+}
+
+.nav-links-center:after{
+  content: "";
+  display: block;
+  height: 3px;
+  width: 0;
+  background: transparent;
+  transition: width 0.7s ease, background-color 0.5s ease;
+}
+
+.nav-links-center:hover:after {
+    width: 100%;
+    background: #ffdd40;
 }
 
 
   .nav-item-cart{
     line-height: 50px;
     margin-right: 1rem;
-  }
-
-  .nav-links-cart {
-    /* line-height:  50px; */
-    /* display: flex; */
   }
 
   .nav-item-cart .active {
@@ -176,13 +188,16 @@
 
   .nav-links-cart{
     color: #fff;
-    margin-bottom: 1000rem;
-    /* text-decoration: none; */
+    /* margin-bottom: 1000rem; */
+    text-decoration: none;
     /* padding: 0.5rem 1rem; */
-    background-color: aqua;
-    height: 1%;
+    /* background-color: aqua; */
+    height: 100%;
+    line-height: 63px;
     /* width: ; */
     /* border-bottom: 3px solid transparent; */
+ 
+
   }
 
   .fa-code {
@@ -192,7 +207,8 @@
   .nav-item {
     line-height: 40px;
     margin-right: 1rem;
-    border:#101010 2px solid;
+    /* display: flex; */
+    /* border:#101010 2px solid; */
     /* float: right; */
   }
   
@@ -212,7 +228,7 @@
   
   .nav-item .active {
     color: #ffdd40;
-    border: 1px solid #ffdd40;
+    /* border: 1px solid #ffdd40; */
   }
   
   .nav-icon {

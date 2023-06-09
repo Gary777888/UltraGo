@@ -94,7 +94,7 @@ function NavBar() {
                                  exact
                                  to={"/cart"}
                                  activeClassName="active"
-                                 className="nav-links"
+                                 className="nav-links-cart"
                                  onClick={handleClick}
                               >
                                  <ShoppingCartIcon />
@@ -129,7 +129,7 @@ function NavBar() {
                                  exact
                                  to={"/login"}
                                  activeClassName="active"
-                                 className="nav-links"
+                                 className="nav-links-cart"
                                  onClick={handleClick}
                               >
                                  <ShoppingCartIcon />

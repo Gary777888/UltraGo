@@ -28,9 +28,7 @@ const upload = (formData) => {
 
 const getUserPic = (username) => {
    console.log("get pic", username);
-   return axios.post(API_URL + "getUserPic", {
-      username,
-   });
+   return axios.post(API_URL + `getUserPic/${username}`, {});
 };
 
 const editProfile = async (email, name, username) => {
@@ -44,7 +42,8 @@ const editProfile = async (email, name, username) => {
 
 const getUser = (username) => {
    console.log("getUser function....", username);
-   return axios.get(API_URL + `getUser/${username}`);
+   return axios.post(API_URL + `getUser/${username}`);
+   // return axios.get(API_URL + "getUser/peter");
 };
 
 const changeUserPassword = (password, username) => {

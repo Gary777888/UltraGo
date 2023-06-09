@@ -12,6 +12,7 @@ import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useParams } from "react-router-dom";
+import authService from "../../services/auth";
 
 const Profile = () => {
    window.scrollTo(0, 0);
@@ -38,34 +39,25 @@ const Profile = () => {
    // const navigate = useNavigate();
 
    useEffect(() => {
+      // const user = authService.getCurrentUser();
+      // if (user) {
+      //    // console.log("setttt");
+      //    setCurrentUser(user);
+      // }
       getUserProfile(username);
       getUserPic(username);
    }, [username]);
 
    console.log("username check...", username);
-   console.log("current user check...", currentUser);
+   console.log("current user check...", typeof currentUser, currentUser);
 
-   const getUserPic = (username) => {
-      userService
-         .getUserPic(username)
-         .then((res) => {
-            console.log("ressss check....", res);
-            setData(res.data);
-            setDataImage(true);
-         })
-         .catch((err) => {
-            console.log(err);
-         });
-   };
-
-   console.log("check dataaaaaa", data);
-
-   const getUserProfile = (username) => {
+   const getUserProfile = async (username) => {
       console.log("checkkkkkkkkkuser namemememe", username);
-      userService
+      await userService
          .getUser(username)
          .then((res) => {
-            console.log("check getuser res...", res.data);
+            console.log("1st check");
+            console.log("check getuser res...", res);
             setCurrentUser(res.data);
          })
          .catch((err) => {
@@ -78,6 +70,21 @@ const Profile = () => {
             // }
          });
    };
+
+   const getUserPic = async (username) => {
+      await userService
+         .getUserPic(username)
+         .then((res) => {
+            console.log("ressss check....", res);
+            setData(res.data);
+            setDataImage(true);
+         })
+         .catch((err) => {
+            console.log(err);
+         });
+   };
+
+   console.log("check dataaaaaa", data);
 
    const saveFile = (e) => {
       if (!e.target.files[0]) {

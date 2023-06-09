@@ -10,6 +10,7 @@ module.exports.testinguser = (req, res) => {
 };
 
 module.exports.getUserPic = (req, res) => {
+   const username = req.params.username;
    const q = "SELECT * from users WHERE username = ?";
    // const jsonData = pm.response.json().message
    // pm.visualizer.set(`
@@ -17,8 +18,8 @@ module.exports.getUserPic = (req, res) => {
    // <img src="${jsonData}">
    // </body>`);
 
-   db.query(q, [req.body.username], (err, data) => {
-      console.log("check username...", req.body.username);
+   db.query(q, [username], (err, data) => {
+      console.log("check username...", username);
       console.log("next is data check", data);
       if (err) {
          return res.status(500).json(err);
@@ -27,7 +28,7 @@ module.exports.getUserPic = (req, res) => {
          return res.status(409).json("User not found!");
       }
       for (let i = 0; i < data.length; i++) {
-         console.log("data check", data[i]);
+         console.log("data check pic", data[i]);
          if (data[i].profilePic === null) {
             res.send({ profilePic: "image_1684379802158.png" });
          } else {
@@ -126,25 +127,40 @@ module.exports.getUser = (req, res) => {
    const q = "SELECT * FROM users WHERE username = ?";
 
    console.log("before getuser query....");
-   db.query(q, [username], (err, data) => {
-      console.log("inside q getuser");
-      // res.send(data[0]);
+   try {
+      db.query(q, [username], (err, data) => {
+         console.log("inside q getuser");
+         // res.send(data[0]);
 
-      if (err) {
-         return res.status(500).json(err);
-      }
-      if (!data.length) {
-         return res.status(409).json("User not found!");
-      } else {
-         // console.log("data check...".data);
-         res.send(data[0]);
-      }
-   });
-   // .catch((err) => {
-   //    res.status(500).send({
-   //       message: "Error retrieving username=" + username,
-   //    });
-   // });
+         if (err) {
+            return res.status(500).json(err);
+         }
+         if (!data.length) {
+            return res.status(409).json("User not found!");
+         } else {
+            console.log("check cooki.....", req.cookies);
+            if (!req.cookies.accessToken) {
+               console.log("null...");
+               return res.status(433).json("Login first");
+            } else {
+               console.log("not nulll.....");
+               // res.json(req.cookies);
+               // console.log("data check...".data[0]);
+               for (let i = 0; i < data.length; i++) {
+                  // console.log("data check 0....".data[0]);
+                  console.log("data check i user...", data[i]);
+                  res.json(data[i]);
+               }
+               // console.log("data check outside nnn", typeof data, data);
+               // res.json(data);
+            }
+         }
+      });
+   } catch (err) {
+      return res.status(433).send({
+         message: "Error retrieving username=" + username,
+      });
+   }
 };
 
 // module.exports = upload
