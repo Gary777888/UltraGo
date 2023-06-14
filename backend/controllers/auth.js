@@ -77,14 +77,18 @@ module.exports.login = (req, res) => {
          { id: data[0].id, username: req.body.username },
          config.secret,
          {
-            expiresIn: 3600,
+            expiresIn: 3600 * 1000,
          }
       );
 
       const { password, ...others } = data[0];
 
       res.cookie("accessToken", token, {
+         // expires: new Date(Date.now() + 900000),
+         // path: `http://localhost:8001/profile/${req.body.username}`,
+         // sameSite: "none",
          httpOnly: true,
+         // secure: true,
       })
          .status(200)
          .send(
@@ -104,8 +108,9 @@ module.exports.login = (req, res) => {
 module.exports.logout = (req, res) => {
    console.log("Logout function");
    res.clearCookie("accessToken", {
-      secure: true,
-      sameSite: "none",
+      // secure: true,
+      // path: "http://localhost:8001",
+      // sameSite: "none",
    })
       .status(200)
       .json("Goodbye! User has loggout out");

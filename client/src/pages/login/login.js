@@ -32,6 +32,7 @@ const Login = () => {
             console.log("inside", res);
             setSuccessful(true);
             setMessage(res.message);
+            console.log("check all data mess...", res);
             setTimeout(function () {
                navigate("/");
                window.location.reload();

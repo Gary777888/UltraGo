@@ -1,6 +1,10 @@
 import axios from "axios";
 const API_URL = "http://localhost:8000/api/";
 
+let axiosConfig = {
+   withCredentials: true,
+};
+
 const register = (username, email, password, name) => {
    console.log("check herere", username, email, password, name);
    return axios.post(API_URL + "register", {
@@ -14,10 +18,15 @@ const register = (username, email, password, name) => {
 const login = (username, password) => {
    console.log("check here", username, password);
    return axios
-      .post(API_URL + "login", {
-         username,
-         password,
-      })
+      .post(
+         API_URL + "login",
+         {
+            username,
+            password,
+            // axiosConfig,
+         },
+         axiosConfig
+      )
       .then((response) => {
          console.log("resss", response);
          console.log("check res", response.data);
@@ -34,6 +43,9 @@ const getCurrentUser = () => {
 
 const logout = () => {
    localStorage.removeItem("user");
+   return axios.post(API_URL + "logout", {
+      // axiosConfig,
+   });
    // window.location.reload();
 };
 

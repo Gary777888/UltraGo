@@ -3,9 +3,9 @@ const multer = require("multer");
 const db = require("../config/connect.js");
 const path = require("path");
 const express = require("express");
-const app = express();
 
 const userController = require("../controllers/user");
+const authMiddleware = require("../middleware/authjwt.js");
 
 var storage = multer.diskStorage({
    destination: (req, file, callBack) => {
@@ -69,7 +69,11 @@ module.exports = function (app) {
    router.get("/api/testinguser", userController.testinguser);
    router.post("/api/getUserPic/:username", userController.getUserPic);
    // router.get("/api/getUser/:username", userController.getUser);
-   router.post("/api/getUser/:username", userController.getUser);
+   router.post(
+      "/api/getUser/:username",
+      [authMiddleware.requireAuth],
+      userController.getUser
+   );
    router.put("/api/updateProfile", userController.changedProfile);
    router.put("/api/updateUserPassword", userController.changedPassword);
    console.log("user route");

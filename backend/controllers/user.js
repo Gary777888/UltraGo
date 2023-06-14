@@ -130,29 +130,13 @@ module.exports.getUser = (req, res) => {
    try {
       db.query(q, [username], (err, data) => {
          console.log("inside q getuser");
-         // res.send(data[0]);
-
          if (err) {
             return res.status(500).json(err);
-         }
-         if (!data.length) {
-            return res.status(409).json("User not found!");
          } else {
-            console.log("check cooki.....", req.cookies);
-            if (!req.cookies.accessToken) {
-               console.log("null...");
-               return res.status(433).json("Login first");
-            } else {
-               console.log("not nulll.....");
-               // res.json(req.cookies);
-               // console.log("data check...".data[0]);
-               for (let i = 0; i < data.length; i++) {
-                  // console.log("data check 0....".data[0]);
-                  console.log("data check i user...", data[i]);
-                  res.json(data[i]);
-               }
-               // console.log("data check outside nnn", typeof data, data);
-               // res.json(data);
+            console.log("not nulll.....");
+            for (let i = 0; i < data.length; i++) {
+               console.log("data check i user...", data[i]);
+               res.json(data[i]);
             }
          }
       });

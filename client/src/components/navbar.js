@@ -25,7 +25,10 @@ function NavBar() {
    }, []);
 
    const logout = () => {
-      authService.logout();
+      // e.preventDefault();
+      authService.logout().then((res) => {
+         console.log("logout", res);
+      });
       console.log("clicked logout");
    };
 
