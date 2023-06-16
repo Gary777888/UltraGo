@@ -83,11 +83,13 @@ module.exports.login = (req, res) => {
 
       const { password, ...others } = data[0];
 
+      // console.log("check token...", token);
+
       res.cookie("accessToken", token, {
          // expires: new Date(Date.now() + 900000),
-         // path: `http://localhost:8001/profile/${req.body.username}`,
+         path: `http://localhost:8001/profile/${req.body.username}`,
          // sameSite: "none",
-         httpOnly: true,
+         httpOnly: false,
          // secure: true,
       })
          .status(200)
@@ -109,7 +111,7 @@ module.exports.logout = (req, res) => {
    console.log("Logout function");
    res.clearCookie("accessToken", {
       // secure: true,
-      // path: "http://localhost:8001",
+      path: `http://localhost:8001/profile/${req.body.username}`,
       // sameSite: "none",
    })
       .status(200)

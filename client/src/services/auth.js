@@ -2,7 +2,7 @@ import axios from "axios";
 const API_URL = "http://localhost:8000/api/";
 
 let axiosConfig = {
-   withCredentials: true,
+   withCredentials: "include",
 };
 
 const register = (username, email, password, name) => {
@@ -43,9 +43,13 @@ const getCurrentUser = () => {
 
 const logout = () => {
    localStorage.removeItem("user");
-   return axios.post(API_URL + "logout", {
-      // axiosConfig,
-   });
+   return axios.post(
+      API_URL + "logout",
+      {
+         // axiosConfig,
+      },
+      axiosConfig
+   );
    // window.location.reload();
 };
 

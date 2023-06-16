@@ -1,6 +1,10 @@
 import axios from "axios";
 const API_URL = "http://localhost:8000/api/";
 
+let axiosConfig = {
+   withCredentials: "include",
+};
+
 const upload = (formData) => {
    console.log("outside 1", formData.get("image"));
    console.log("outside 2", formData.get("fileName"));
@@ -42,7 +46,7 @@ const editProfile = async (email, name, username) => {
 
 const getUser = (username) => {
    console.log("getUser function....", username);
-   return axios.post(API_URL + `getUser/${username}`);
+   return axios.post(API_URL + `getUser/${username}`, {}, axiosConfig);
    // return axios.get(API_URL + "getUser/peter");
 };
 

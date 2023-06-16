@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const authController = require("../controllers/auth");
+const authMiddleware = require("../middleware/authjwt");
 
 module.exports = function (app) {
    router.post("/api/register", authController.register);
@@ -7,7 +8,7 @@ module.exports = function (app) {
    router.post("/api/logout", authController.logout);
    router.get("/api/getcookie", authController.getCookie);
    router.get("/api/outside", authController.send);
-
+   router.post("/api/getAuthorisedUser", authMiddleware.requireAuth);
    app.use("/", router);
 };
 // router.post("/api/register", authController.register);

@@ -19,7 +19,7 @@ const requireAuth = (req, res, next) => {
          if (!token) {
             console.log("No token provided...");
             return res.status(466).send({
-               message: "No token provided",
+               message: "No token provided lol",
             });
          } else {
             jwt.verify(token, config.secret, (error, decodedToken) => {

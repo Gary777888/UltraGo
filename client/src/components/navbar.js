@@ -5,6 +5,8 @@ import Login from "../pages/login/login";
 import Register from "../pages/register/register";
 import AboutUs from "../pages/aboutus/aboutUs";
 import Profile from "../pages/profile/profile";
+import PrivateRoute from "../utils/privateRoute";
+
 import authService from "../services/auth";
 import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
 // import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
@@ -13,6 +15,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 function NavBar() {
    const [click, setClick] = useState(false);
    const [currentUser, setCurrentUser] = useState("");
+   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
    useEffect(() => {
       const user = authService.getCurrentUser();
@@ -20,6 +23,7 @@ function NavBar() {
       if (user) {
          // console.log("setttt");
          setCurrentUser(user);
+         setIsLoggedIn(true);
       }
       window.scrollTo(0, 0);
    }, []);
@@ -175,7 +179,14 @@ function NavBar() {
             <Route exact path="/aboutUs" element={<AboutUs />} />
             <Route exact path="/register" element={<Register />} />
             <Route exact path="/login" element={<Login />} />
-            <Route exact path="/profile/:username" element={<Profile />} />
+            <Route element={<PrivateRoute />}>
+               <Route path="/profile/:username" element={<Profile />} />
+            </Route>
+            {/* {isLoggedIn ? (
+               <Route exact path="/profile/:username" element={<Profile />} />
+            ) : (
+               <Route exact path="/" element={<Home />} />
+            )} */}
          </Routes>
       </BrowserRouter>
    );

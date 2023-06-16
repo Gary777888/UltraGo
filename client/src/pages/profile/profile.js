@@ -11,7 +11,7 @@ import defaultUser from "../../images/defaultUser.png";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import authService from "../../services/auth";
 
 const Profile = () => {
@@ -36,7 +36,7 @@ const Profile = () => {
    const [matched, setMatched] = useState(false);
 
    const { username } = useParams();
-   // const navigate = useNavigate();
+   const navigate = useNavigate();
 
    useEffect(() => {
       // const user = authService.getCurrentUser();
@@ -62,6 +62,17 @@ const Profile = () => {
          })
          .catch((err) => {
             console.log("errrororr...", err);
+            navigate("/");
+            // if (err.response.status === 466) {
+            //    setTimeout(function () {
+            //       // window.location.reload();
+            //       navigate("/");
+            //    }, -100);
+            // } else if (err.response.status === 477) {
+            //    navigate("/");
+            // } else if (err.response.status === 409) {
+            //    navigate("/");
+            // }
             // if (err.response.status === 410) {
             //    console.log("failll error 410", err.response.data);
             //    navigate("/");
