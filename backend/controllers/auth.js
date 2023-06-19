@@ -86,24 +86,22 @@ module.exports.login = (req, res) => {
       // console.log("check token...", token);
 
       res.cookie("accessToken", token, {
-         // expires: new Date(Date.now() + 900000),
-         path: `http://localhost:8001/profile/${req.body.username}`,
-         // sameSite: "none",
          httpOnly: false,
-         // secure: true,
-      })
-         .status(200)
-         .send(
-            {
-               username: others.username,
-               email: others.email,
-               name: others.name,
-               profilePic: others.profilePic,
-               accessToken: token,
-               message: `Welcome ${others.username}`,
-            }
-            // `Welcome ${req.body.username}`
-         );
+      });
+
+      res.cookie("username", others.username);
+
+      res.status(200).send(
+         {
+            username: others.username,
+            email: others.email,
+            name: others.name,
+            profilePic: others.profilePic,
+            accessToken: token,
+            message: `Welcome ${others.username}`,
+         }
+         // `Welcome ${req.body.username}`
+      );
    });
 };
 
@@ -111,11 +109,13 @@ module.exports.logout = (req, res) => {
    console.log("Logout function");
    res.clearCookie("accessToken", {
       // secure: true,
-      path: `http://localhost:8001/profile/${req.body.username}`,
+      // path: `http://localhost:8001/profile/${req.body.username}`,
       // sameSite: "none",
-   })
-      .status(200)
-      .json("Goodbye! User has loggout out");
+   });
+
+   res.clearCookie("username");
+
+   res.status(200).json("Goodbye! User has loggout out");
 };
 
 module.exports.getCookie = (req, res) => {

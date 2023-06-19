@@ -62,7 +62,7 @@ const Profile = () => {
          })
          .catch((err) => {
             console.log("errrororr...", err);
-            navigate("/");
+            // navigate("/");
             // if (err.response.status === 466) {
             //    setTimeout(function () {
             //       // window.location.reload();

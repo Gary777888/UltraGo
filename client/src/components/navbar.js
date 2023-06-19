@@ -8,14 +8,24 @@ import Profile from "../pages/profile/profile";
 import PrivateRoute from "../utils/privateRoute";
 
 import authService from "../services/auth";
-import { BrowserRouter, Routes, Route, NavLink } from "react-router-dom";
+import {
+   BrowserRouter,
+   Routes,
+   Route,
+   NavLink,
+   Navigate,
+} from "react-router-dom";
 // import ShoppingCartIcon from "@material-ui/icons/ShoppingCart";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+
+import Cookie from "js-cookie";
 
 function NavBar() {
    const [click, setClick] = useState(false);
    const [currentUser, setCurrentUser] = useState("");
-   const [isLoggedIn, setIsLoggedIn] = useState(false);
+   // const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+   let accessToken = Cookie.get("accessToken");
 
    useEffect(() => {
       const user = authService.getCurrentUser();
@@ -23,10 +33,22 @@ function NavBar() {
       if (user) {
          // console.log("setttt");
          setCurrentUser(user);
-         setIsLoggedIn(true);
+         // setIsLoggedIn(true);
       }
+
+      // if (accessToken !== undefined) {
+      //    if (accessToken === currentUser.accessToken) {
+      //       setIsLoggedIn(true);
+      //    }
+      // } else {
+      //    setIsLoggedIn(false);
+      // }
+
       window.scrollTo(0, 0);
    }, []);
+
+   // console.log("cookie check...", accessToken, currentUser.accessToken);
+   // console.log("islogged check....", isLoggedIn);
 
    const logout = () => {
       // e.preventDefault();
@@ -182,11 +204,6 @@ function NavBar() {
             <Route element={<PrivateRoute />}>
                <Route path="/profile/:username" element={<Profile />} />
             </Route>
-            {/* {isLoggedIn ? (
-               <Route exact path="/profile/:username" element={<Profile />} />
-            ) : (
-               <Route exact path="/" element={<Home />} />
-            )} */}
          </Routes>
       </BrowserRouter>
    );

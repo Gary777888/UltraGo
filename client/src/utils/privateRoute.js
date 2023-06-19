@@ -1,12 +1,24 @@
-import { Outlet, Navigate } from "react-router-dom";
+import { Outlet, Navigate, useParams } from "react-router-dom";
+import Cookie from "js-cookie";
+import authService from "../services/auth";
 
 const PrivateRoute = () => {
-   let auth = { token: true };
+   // const [isLoggedIn, setIsLoggedIn] = useState(false);
+   const { username } = useParams();
 
-   //    const navigate = useNavigate();
-   //    navigate("as")
+   // console.log("check user.....", authService.getCurrentUser().accessToken);
+   // console.log("check Cookie...", Cookie.get("accessToken"));
+   // let emptyToken = "";
 
-   return auth.token ? <Outlet /> : <Navigate to="/" />;
+   // if (authService.getCurrentUser().accessToken) {
+   //    emptyToken = authService.getCurrentUser().accessToken;
+   // }
+   return Cookie.get("accessToken") !== null &&
+      Cookie.get("username") === username ? (
+      <Outlet />
+   ) : (
+      <Navigate to="/" />
+   );
 };
 
 export default PrivateRoute;
