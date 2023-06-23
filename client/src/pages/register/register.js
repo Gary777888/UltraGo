@@ -17,9 +17,21 @@ const Register = () => {
    const [emailEmpty, setEmailEmpty] = useState(true);
 
    const onChangeUsername = (e) => {
-      const USERNAME = e.target.value;
-      setUsername(USERNAME);
+      // e.target.value.replace(/\s/g, "");
+      const USERNAME = e.target.value.toLowerCase();
+      // if (e.target.value.includes(" ")) {
+      //    USERNAME.replace(/\s/g, "");
+      // }
+      setUsername(USERNAME.trim());
       console.log("username check", USERNAME, username);
+   };
+
+   const handleKeyDown = (e) => {
+      if (e.target.value.includes(" ")) {
+         e.target.value = e.target.value.replace(/\s/g, "");
+         e.target.value.trimStart();
+         // e.target.value.trim();
+      }
    };
 
    const onChangeEmail = (e) => {
@@ -194,12 +206,15 @@ const Register = () => {
                      name="username"
                      required
                      onChange={onChangeUsername}
+                     onKeyDown={handleKeyDown}
+                     onBlur={handleKeyDown}
+                     style={{ textTransform: "lowercase" }}
                   />
                   <input
                      type="email"
                      placeholder="Email"
                      name="email"
-                     // required
+                     required
                      onChange={onChangeEmail}
                      onBlur={onBlurEmail}
                   />

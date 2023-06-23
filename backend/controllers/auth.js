@@ -74,7 +74,10 @@ module.exports.login = (req, res) => {
       }
 
       const token = jwt.sign(
-         { id: data[0].id, username: req.body.username },
+         {
+            id: data[0].id,
+            username: req.body.username,
+         },
          config.secret,
          {
             expiresIn: 3600 * 1000,

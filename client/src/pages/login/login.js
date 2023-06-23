@@ -14,8 +14,15 @@ const Login = () => {
 
    const onChangeUsername = (e) => {
       const USERNAME = e.target.value;
-      setUsername(USERNAME);
+      setUsername(USERNAME.toLowerCase());
       console.log("username check", username);
+   };
+
+   const handleKeyDown = (e) => {
+      if (e.target.value.includes(" ")) {
+         e.target.value = e.target.value.replace(/\s/g, "");
+         // e.target.value.trim();
+      }
    };
 
    const onChangePassword = (e) => {
@@ -73,6 +80,8 @@ const Login = () => {
                      placeholder="Username"
                      name="username"
                      onChange={onChangeUsername}
+                     onKeyDown={handleKeyDown}
+                     style={{ textTransform: "lowercase" }}
                   />
                   <input
                      type="password"
